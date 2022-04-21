@@ -126,17 +126,23 @@ def is_off_board(coords, board):
         return True
     return False
     
+def whos_turn(current_player):
+    if current_player == 'Player':
+        return 'Computer'
+    return 'Player' 
+
 def run_game():
     valid_input = False
+    turn = 'Player'
     while not valid_input:
-            board_info = input('Enter board size first and the number of ships. eg. 2 3: \n')
-            valid_input = validate_input(board_info)
+        board_info = input('Enter board size first and the number of ships. eg. 2 3: \n')
+        valid_input = validate_input(board_info)
 
     game_boards = build_boards(valid_input)
     my_board = game_boards[0]
     computer_board = game_boards[1]
     print_boards(my_board, computer_board)
-
+    
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1 1')
         valid_input = False
@@ -152,6 +158,8 @@ def run_game():
                 print(targeting)
             else:
                 unique_coords = True
+            print(turn)
+            turn = whos_turn(turn)
         print_boards(my_board, computer_board)
 
 
