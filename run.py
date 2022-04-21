@@ -1,4 +1,6 @@
 
+from numpy import random
+
 class create_game_board:
     def __init__(self, size, ships):
         self.size = size
@@ -18,6 +20,15 @@ class create_game_board:
             row_list = []
         return board_matrix
 
+
+def get_random(size):
+    '''
+        generates a random number between 1 and the
+        size of the board
+    '''
+    return random.randint(1, size)
+
+
 def print_board(board):
     rows = []
     for row in board:
@@ -27,9 +38,9 @@ def print_board(board):
         print(row, '\n')
 
 def run_game():
-    my_board = create_game_board( 5, 4 )
-    print(my_board.build_board())
+    my_board = create_game_board( 6, 4 )
     print_board(my_board.build_board())
+    print(get_random(my_board.size))
 
 
 run_game()
