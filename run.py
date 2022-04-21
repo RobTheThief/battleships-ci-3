@@ -1,4 +1,3 @@
-
 from numpy import random, isnan
 import copy
 
@@ -46,9 +45,11 @@ class create_game_board:
             self.board_matrix[row - 1][col - 1] = ' #'
             self.board_matrix_obscured[row - 1][col - 1] = ' #'
             self.hit_count += 1
-        else:
+        elif self.board_matrix[row - 1][col - 1] == ' .':
             self.board_matrix[row - 1][col - 1] = ' X'
             self.board_matrix_obscured[row - 1][col - 1] = ' X'
+        elif self.board_matrix[row - 1][col - 1] == ' X' or self.board_matrix[row - 1][col - 1] == ' #':
+            return 'Already fired on these coordinates. Try again'
 
 def get_random(size):
     '''
@@ -139,13 +140,19 @@ def run_game():
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1 1')
         valid_input = False
-        while not valid_input:
+        unique_coords = False
+        while not valid_input and not unique_coords:
             coords = input('eg. 2 3: \n')
             valid_input = validate_input(coords)
             if valid_input != False and is_off_board(valid_input, my_board) == True:
                 valid_input = False
-        computer_board.recieve_shot(valid_input[0], valid_input[1])
-        print_boards()
+            targeting = computer_board.recieve_shot(valid_input[0], valid_input[1])
+            if targeting == 'Already fired on these coordinates. Try again':
+                unique_coords = False
+                print(targeting)
+            else:
+                unique_coords = True
+        print_boards(my_board, computer_board)
 
 
 run_game()
