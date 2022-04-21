@@ -37,6 +37,10 @@ class create_game_board:
                     done = True
 
     def recieve_shot(self, row, col):
+        '''
+            checks if given coordinates are a hit or miss and updates the board
+        '''
+
         if self.board_matrix[row - 1][col - 1] == '<>':
             self.board_matrix[row - 1][col - 1] = ' #'
             self.hit_count += 1
@@ -63,13 +67,16 @@ def print_board(board):
         print(row, '\n')
 
 def run_game():
-    my_board = create_game_board( 6, 7 )
+    my_board = create_game_board( 6, 2 )
     my_board.add_ships()
     print_board(my_board.board_matrix)
-    my_board.recieve_shot(3,3)
-    print_board(my_board.board_matrix)
-    print(my_board.hit_count)
-    print('hi')
+    while my_board.hit_count < my_board.ships:
+        print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1, 1')
+        coords = input('eg. 2 3: ')
+        coords = coords.split()
+        my_board.recieve_shot(int(coords[0]), int(coords[1]))
+        print_board(my_board.board_matrix)
+        print(my_board.hit_count)
 
 
 run_game()
