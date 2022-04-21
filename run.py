@@ -18,10 +18,18 @@ class create_game_board:
             row_list = []
         return board_matrix
 
+def print_board(board):
+    rows = []
+    for row in board:
+        x = "   ".join(row)
+        rows.append(x)
+    for row in rows:
+        print(row, '\n')
 
 def run_game():
     my_board = create_game_board( 5, 4 )
     print(my_board.build_board())
+    print_board(my_board.build_board())
 
 
 run_game()
