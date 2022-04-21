@@ -1,13 +1,12 @@
 
-from numpy import random
+from numpy import random, isnan, nan
 
 class create_game_board:
     def __init__(self, size, ships):
         self.size = size
         self.ships = ships
         self.board_matrix = []
-        self.hit_count = 0
-        
+        self.hit_count = 0 
 
     def build_board(self):
         """
@@ -66,15 +65,43 @@ def print_board(board):
     for row in rows:
         print(row, '\n')
 
+def validate_input(parameters):
+    parameters = parameters.split()
+    try:
+        x = int(parameters[0])
+    except ValueError:
+        print('First parameter is not a number')
+        return False
+    try:
+        y = int(parameters[1])
+        return [x, y]
+    except ValueError:
+        print('Second parameter is not a number')
+        return False
+
+def is_off_board(coords, board):
+    if coords[0] > board.size:
+        print('X coordinate given is off board!')
+        return False
+    if coords[1] > board.size:
+        print('Y coordinate given is off board! Try again')
+        return False
+    return True
+    
+
 def run_game():
     my_board = create_game_board( 6, 2 )
     my_board.add_ships()
     print_board(my_board.board_matrix)
     while my_board.hit_count < my_board.ships:
         print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1, 1')
-        coords = input('eg. 2 3: ')
-        coords = coords.split()
-        my_board.recieve_shot(int(coords[0]), int(coords[1]))
+        valid_input = False
+        while not valid_input:
+            coords = input('eg. 2 3: ')
+            valid_input = validate_input(coords)
+            if is_off_board(valid_input, my_board) == False:
+                valid_input = False
+        my_board.recieve_shot(valid_input[0], valid_input[1])
         print_board(my_board.board_matrix)
         print(my_board.hit_count)
 
