@@ -44,9 +44,11 @@ class create_game_board:
 
         if self.board_matrix[row - 1][col - 1] == '<>':
             self.board_matrix[row - 1][col - 1] = ' #'
+            self.board_matrix_obscured[row - 1][col - 1] = ' #'
             self.hit_count += 1
         else:
             self.board_matrix[row - 1][col - 1] = ' X'
+            self.board_matrix_obscured[row - 1][col - 1] = ' X'
 
 def get_random(size):
     '''
@@ -55,17 +57,39 @@ def get_random(size):
     '''
     return random.randint(1, size)
 
+def build_boards(valid_input):
+    my_board = create_game_board( valid_input[0], valid_input[1] )
+    my_board.add_ships()
+    computer_board = create_game_board( valid_input[0], valid_input[1] )
+    computer_board.add_ships()
+    return [my_board, computer_board]
+
 def print_board(board):
     '''
         Formats the given board matrix row into a series of strings and 
         prints out each row in order
     '''
     rows = []
+    num_label = 1
     for row in board:
         x = "  ".join(row)
         rows.append(x)
     for row in rows:
-        print(row, '\n')
+        print(num_label, row, '\n')
+        num_label += 1
+
+def print_boards(my_board, computer_board):
+    print('Player Board: \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
+    col_num = 1
+    col_labels = '   '
+    for _ in range(0, my_board.size):
+        col_labels += f'{col_num}   '
+        col_num += 1
+    print(col_labels)
+    print_board(my_board.board_matrix)
+    print('Computer Board: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
+    print(col_labels)
+    print_board(computer_board.board_matrix_obscured)
 
 def validate_input(parameters):
     '''
@@ -101,24 +125,18 @@ def is_off_board(coords, board):
         return True
     return False
     
-
 def run_game():
     valid_input = False
     while not valid_input:
             board_info = input('Enter board size first and the number of ships. eg. 2 3: \n')
             valid_input = validate_input(board_info)
 
-    my_board = create_game_board( valid_input[0], valid_input[1] )
-    my_board.add_ships()
-    computer_board = create_game_board( valid_input[0], valid_input[1] )
-    computer_board.add_ships()
+    game_boards = build_boards(valid_input)
+    my_board = game_boards[0]
+    computer_board = game_boards[1]
+    print_boards(my_board, computer_board)
 
-    print('Player Board: ')
-    print_board(my_board.board_matrix)
-    print('Computer Board: ')
-    print_board(computer_board.board_matrix_obscured)
-    
-    while my_board.hit_count < my_board.ships:
+    while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1 1')
         valid_input = False
         while not valid_input:
@@ -126,9 +144,8 @@ def run_game():
             valid_input = validate_input(coords)
             if valid_input != False and is_off_board(valid_input, my_board) == True:
                 valid_input = False
-        my_board.recieve_shot(valid_input[0], valid_input[1])
-        print_board(my_board.board_matrix)
-        print(my_board.hit_count)
+        computer_board.recieve_shot(valid_input[0], valid_input[1])
+        print_boards()
 
 
 run_game()
