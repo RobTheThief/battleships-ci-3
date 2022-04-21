@@ -36,7 +36,7 @@ class create_game_board:
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
 
-    def take_shot(self, row, col):
+    def recieve_shot(self, row, col):
         if self.board_matrix[row - 1][col - 1] == '<>':
             self.board_matrix[row - 1][col - 1] = ' #'
             self.hit_count += 1
@@ -66,7 +66,7 @@ def run_game():
     my_board = create_game_board( 6, 7 )
     my_board.add_ships()
     print_board(my_board.board_matrix)
-    my_board.take_shot(3,3)
+    my_board.recieve_shot(3,3)
     print_board(my_board.board_matrix)
     print(my_board.hit_count)
     print('hi')
