@@ -51,7 +51,7 @@ class create_game_board:
             self.board_matrix_obscured[row - 1][col - 1] = ' X'
             return 'Miss'
         elif self.board_matrix[row - 1][col - 1] == ' X' or self.board_matrix[row - 1][col - 1] == ' #':
-            return 'Already fired on these coordinates. Try again'
+            return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
 def get_random(size):
     '''
@@ -82,7 +82,7 @@ def print_board(board):
         num_label += 1
 
 def print_boards(my_board, computer_board):
-    print('Player Board: \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
+    print('PLAYER BOARD \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
     for _ in range(0, my_board.size):
@@ -90,7 +90,7 @@ def print_boards(my_board, computer_board):
         col_num += 1
     print(col_labels)
     print_board(my_board.board_matrix)
-    print('Computer Board: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
+    print('COMPUTER BOARD: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
 
@@ -103,16 +103,16 @@ def validate_input(parameters):
     try:
         x = int(parameters[0])
     except ValueError:
-        print('First parameter is not a number')
+        print('**FIRST PARAMETER IS NOT A NUMBER')
         return False
     try:
         y = int(parameters[1])
         return [x, y]
     except ValueError:
-        print('Second parameter is not a number')
+        print('**SECOND PARAMETER IS NOT A NUMBER')
         return False
     except IndexError:
-        print('Only one parameter was entered. Try again')
+        print('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN')
         return False
 
 def is_off_board(coords, board):
@@ -121,17 +121,17 @@ def is_off_board(coords, board):
         Returns True if it is with an error message.
     '''
     if coords[0] > board.size:
-        print('X coordinate given is off board! Try again')
+        print('**X COORDINATE IS OFF BOARD! VALUE MUST BE',board.size, 'OR LESS')
         return True
     if coords[1] > board.size:
-        print('Y coordinate given is off board! Try again')
+        print('**Y COORDINATE IS OFF BOARD! VALUE MUST BE',board.size, 'OR LESS')
         return True
     return False
     
 def whos_turn(current_player):
-    if current_player == 'Player':
-        return 'Computer'
-    return 'Player' 
+    if current_player == 'PLAYER':
+        return 'COMPUTER'
+    return 'PLAYER' 
 
 def generate_coords(size):
     random_row = get_random(size)
@@ -140,9 +140,9 @@ def generate_coords(size):
 
 def run_game():
     valid_input = False
-    current_turn = 'Player'
+    current_turn = 'PLAYER'
     while not valid_input:
-        board_info = input('Enter board size first and the number of ships. eg. 2 3: \n')
+        board_info = input('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3: \n')
         valid_input = validate_input(board_info)
 
     game_boards = build_boards(valid_input)
@@ -153,10 +153,10 @@ def run_game():
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         valid_input = False
         unique_coords = False
-        print('Enter coordinates seperated by a space to try to make a hit. The top left coordinate is 1 1')
+        print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
         while not valid_input or not unique_coords:
             targeting = ''
-            if current_turn == 'Player':
+            if current_turn == 'PLAYER':
                 coords = input('eg. 2 3: \n')
                 valid_input = validate_input(coords)
                 if valid_input == False:
@@ -164,21 +164,22 @@ def run_game():
                 if is_off_board(valid_input, my_board) == True:
                     break
                 targeting = computer_board.recieve_shot(valid_input[0], valid_input[1])
-            if current_turn == 'Computer':
+            if current_turn == 'COMPUTER':
                 valid_input = generate_coords(computer_board.size)
                 targeting = my_board.recieve_shot(valid_input[0], valid_input[1])
-            if targeting == 'Already fired on these coordinates. Try again':
-                if current_turn == 'Player':
+            if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
+                if current_turn == 'PLAYER':
                     print(targeting)
                 unique_coords = False
             if targeting == 'Hit' or targeting == 'Miss':
                 current_turn = whos_turn(current_turn)
-                print(current_turn, 'Targeting: ', targeting)
+                print(current_turn, 'TARGETING: ', targeting)
                 unique_coords = True
         print_boards(my_board, computer_board)
     if my_board.hit_count < computer_board.hit_count:
         print('********** XD HURRAY!!! YOU WIN XD **********')
     else:
         print('********** ): YOU LOSE :( **********')
+    run_game()
 
 run_game()
