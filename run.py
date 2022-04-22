@@ -21,6 +21,7 @@ class create_game_board:
             self.board_matrix.append(row_list)
             row_list = []
         self.board_matrix_obscured = copy.deepcopy(self.board_matrix)
+
     def add_ships(self):
         """
         adds ships to unique random coordinates according to ship number
@@ -94,11 +95,26 @@ def print_boards(my_board, computer_board):
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
 
-def validate_input(parameters):
+def validate_ship_to_board_size_ratio(valid_input):
+    area = valid_input[0] * valid_input[0]
+    if area > valid_input[1]:
+        return True
+    print('**NUMBER OF SHIPS IS TOO BIG FOR THIS BOARD AREA\nREDUCE THE NUMBER OF SHIPS OR INCREACE BOARD SIZE')
+    return False
+
+def check_board_size(x):
+    if x < 10:
+        return True
+    print('**BOARD SIZE CANNOT BE BIGGER THAN 9')
+    return False
+
+def validate_input(parameters, is_board_built = False):
     '''
-        Checks if there is more than one parameter and that
-        only numbers are input.
+        Validates input by checking if there is more than one parameter,
+        that only numbers are input, the board size, and board size to
+        ship ratio is correct.
     '''
+
     parameters = parameters.split()
     try:
         x = int(parameters[0])
@@ -107,13 +123,17 @@ def validate_input(parameters):
         return False
     try:
         y = int(parameters[1])
-        return [x, y]
+        if is_board_built:
+             return [x, y]
+        if validate_ship_to_board_size_ratio([x, y]) and check_board_size(x):
+            return [x, y]
     except ValueError:
         print('**SECOND PARAMETER IS NOT A NUMBER')
         return False
     except IndexError:
         print('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN')
         return False
+    return False
 
 def is_off_board(coords, board):
     '''
@@ -142,7 +162,7 @@ def run_game():
     valid_input = False
     current_turn = 'PLAYER'
     while not valid_input:
-        board_info = input('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3: \n')
+        board_info = input('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3 \nBoard size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
 
     game_boards = build_boards(valid_input)
@@ -158,7 +178,7 @@ def run_game():
             targeting = ''
             if current_turn == 'PLAYER':
                 coords = input('eg. 2 3: \n')
-                valid_input = validate_input(coords)
+                valid_input = validate_input(coords, True)
                 if valid_input == False:
                     break
                 if is_off_board(valid_input, my_board) == True:
