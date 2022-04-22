@@ -10,9 +10,9 @@ class create_game_board:
         self.hit_count = 0 
 
     def build_board(self):
-        """
+        '''
         builds the board matrix according to size
-        """
+        '''
 
         for row in range( 0, self.size ):
             row_list = []
@@ -23,9 +23,9 @@ class create_game_board:
         self.board_matrix_obscured = copy.deepcopy(self.board_matrix)
 
     def add_ships(self):
-        """
+        '''
         adds ships to unique random coordinates according to ship number
-        """
+        '''
 
         self.build_board()
         for _ in range(0, self.ships):
@@ -62,6 +62,11 @@ def get_random(size):
     return random.randint(0, size)
 
 def build_boards(valid_input):
+    '''
+        Using the user input creates both boards from the create_game_board class
+        and returns an array with the player board and computer
+        board
+    '''
     my_board = create_game_board( valid_input[0], valid_input[1] )
     my_board.add_ships()
     computer_board = create_game_board( valid_input[0], valid_input[1] )
@@ -83,6 +88,10 @@ def print_board(board):
         num_label += 1
 
 def print_boards(my_board, computer_board):
+    '''
+        Prints both boards with row and columns labeled
+        and the hit count over each board
+    '''
     print('PLAYER BOARD \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
@@ -96,6 +105,11 @@ def print_boards(my_board, computer_board):
     print_board(computer_board.board_matrix_obscured)
 
 def validate_ship_to_board_size_ratio(valid_input):
+    '''
+        Check that the board area is larger that the number 
+        of ships.
+        Returns boolean
+    '''
     area = valid_input[0] * valid_input[0]
     if area > valid_input[1]:
         return True
@@ -103,6 +117,10 @@ def validate_ship_to_board_size_ratio(valid_input):
     return False
 
 def check_board_size(x):
+    '''
+        Check that the board is not larger than 9
+        Returns boolean
+    '''
     if x < 10:
         return True
     print('**BOARD SIZE CANNOT BE BIGGER THAN 9')
@@ -113,6 +131,8 @@ def validate_input(parameters, is_board_built = False):
         Validates input by checking if there is more than one parameter,
         that only numbers are input, the board size, and board size to
         ship ratio is correct.
+        Returns valid input in seperate values and in integer form or
+        False if input is not valid
     '''
 
     parameters = parameters.split()
@@ -149,11 +169,17 @@ def is_off_board(coords, board):
     return False
     
 def whos_turn(current_player):
+    '''
+        Toggles between player and computer to keep track of turns
+    '''
     if current_player == 'PLAYER':
         return 'COMPUTER'
     return 'PLAYER' 
 
 def generate_coords(size):
+    '''
+        Generates random x and y coordinates
+    '''
     random_row = get_random(size)
     random_col = get_random(size)
     return [random_row, random_col]
