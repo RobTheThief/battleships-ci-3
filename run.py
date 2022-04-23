@@ -1,5 +1,22 @@
-from numpy import random, isnan
 import copy
+import gspread
+from numpy import random
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('ci-3-python')
+
+scores = SHEET.worksheet('Scores')
+data = scores.get_all_values()
+print(data)
 
 class create_game_board:
     def __init__(self, size, ships):
