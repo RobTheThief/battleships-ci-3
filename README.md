@@ -29,7 +29,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
     - Imagery used to make up the ....
   - #### Wireframe
     - This wireframe was used initially to get an idea of the style and layout of the app/page would be:
-      [Wireframe Screenshot]()
+      [Wireframe Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/battleships-ci-3_wireframe.png)
 
 ## FEATURES
 
