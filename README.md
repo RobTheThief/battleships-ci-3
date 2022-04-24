@@ -21,26 +21,40 @@ Google Sheets API to access a Google sheet and keep scores for players.
     1. As a Returning Visitor, see my previous scores and play again.
 
 - ### Design
-  - #### Colour Scheme
-    - The main colour used throughout is ....
-  - #### Typography
-    - The bla bla font is the main font used throughout the game with blu blu as the fallback font in case the font isn't being imported into the site correctly. 
-  - #### Imagery
-    - Imagery used to make up the ....
+  The game is entirely command line bases and so the styleing is restricted to the  
+  terminal it runs on.
   - #### Wireframe
-    - This wireframe was used initially to get an idea of the style and layout of the app/page would be:
+    - This wireframe was used initially to get an idea how the game would look in the terminal:
       [Wireframe Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/battleships-ci-3_wireframe.png)
 
 ## FEATURES
 
 ### EXISTING FEATURES
 
-- **Feature Name**
+- **Score board**
 
-  - Feature description
+  - Ability to add player name to keep track of score by means of a cloud based database.  
+  The score board is viewed at the beginning of each game.
 
-  ![Feature Name]()
+  ![Feature Name](http://image)
 
+- **Coordinate based input**
+
+  - Using the row and column labels the player can enter the coordinates to fire upon.
+
+  ![Feature Name](http://image)
+
+- **Play against the computer**
+
+- **Random ship placement**
+
+- **Choose board size and ship number**
+
+  - **Feature Name**
+
+  - description.
+
+  ![Feature Name](http://image)
 
 ## Technologies Used
 
