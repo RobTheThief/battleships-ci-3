@@ -1,6 +1,8 @@
-# PROJECT NAME
+# Battleships Command Line Game
 
-brief description
+A remake of the popular pen and paper game Battleships in the command line.
+Boards are printed out using keyboard characters in a matrix. It uses the
+Google Sheets API to access a Google sheet and keep scores for players. 
 
 ![Responsive Mockup]()
 
@@ -10,14 +12,13 @@ brief description
 
   - #### First Time Visitor Goals
 
-    1. As a First Time Visitor, ....
-    2. As a First Time Visitor, I want to be able to .....
-    3. As a First Time Visitor, I want to be able to easily .....
+    1. As a First Time Visitor, I want to understand clearly the game mechanics.
+    2. As a First Time Visitor, I want to understand the game controls.
+    3. As a First Time Visitor, I want to be able keep track of score.
 
   - #### Returning Visitor Goals
 
-    1. As a Returning Visitor, I want to be able ...
-    2. As a Returning Visitor, I want to find ...
+    1. As a Returning Visitor, see my previous scores and play again.
 
 - ### Design
   - #### Colour Scheme
