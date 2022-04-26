@@ -21,11 +21,11 @@ Google Sheets API to access a Google sheet and keep scores for players.
     1. As a Returning Visitor, see my previous scores and play again.
 
 - ### Design
-  The game is entirely command line bases and so the styleing is restricted to the  
+  The game is entirely command line based and so the styling is restricted to the  
   terminal it runs on.
   - #### Wireframe
     - This wireframe was used initially to get an idea how the game would look in the terminal:
-      [Wireframe Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/battleships-ci-3_wireframe.png)
+      ![Wireframe Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/battleships-ci-3_wireframe.png)
 
 ## FEATURES
 
@@ -49,12 +49,6 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - **Random ship placement**
 
 - **Choose board size and ship number**
-
-  - **Feature Name**
-
-  - description.
-
-  ![Feature Name](http://image)
 
 ## Technologies Used
 

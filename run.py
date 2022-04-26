@@ -1,6 +1,7 @@
 import copy
 import gspread
 from numpy import random
+from pprint import pprint
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -14,14 +15,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('ci-3-python')
 
-scores = SHEET.worksheet('Scores')
-data = scores.get_all_values()
-print(data)
-
 class create_game_board:
-    def __init__(self, size, ships):
+    def __init__(self, size, ships, name = 'Computer'):
         self.size = size
         self.ships = ships
+        self.name = name
         self.board_matrix = []
         self.board_matrix_obscured = []
         self.hit_count = 0 
@@ -53,6 +51,7 @@ class create_game_board:
                 if self.board_matrix[random_row][random_col] != '<>':
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
+        self.check_score_history()
 
     def recieve_shot(self, row, col):
         '''
@@ -71,6 +70,27 @@ class create_game_board:
         elif self.board_matrix[row - 1][col - 1] == ' X' or self.board_matrix[row - 1][col - 1] == ' #':
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
+    def check_score_history(self):
+        print(self.name)
+        scores = SHEET.worksheet('Scores')
+        data = scores.get_all_values()
+        index = -2
+        player_history = []
+        for row in data:
+            try:
+                index = row.index(self.name)
+                player_history = row
+                break
+            except ValueError:
+                index = -1
+        if index == -1:
+            print('NAME NOT FOUND')
+        elif index > -1:
+            print('PREVIOUS SCORES: ','WINS', player_history[1], 'LOSSES', player_history[2])
+        """ scores.update('B2', "test")
+        pprint(data) """
+
+
 def get_random(size):
     '''
         generates a random number between 1 and the
@@ -78,13 +98,13 @@ def get_random(size):
     '''
     return random.randint(0, size)
 
-def build_boards(valid_input):
+def build_boards(valid_input, player_name):
     '''
         Using the user input creates both boards from the create_game_board class
         and returns an array with the player board and computer
         board
     '''
-    my_board = create_game_board( valid_input[0], valid_input[1] )
+    my_board = create_game_board( valid_input[0], valid_input[1], player_name )
     my_board.add_ships()
     computer_board = create_game_board( valid_input[0], valid_input[1] )
     computer_board.add_ships()
@@ -207,8 +227,8 @@ def run_game():
     while not valid_input:
         board_info = input('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3 \nBoard size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
-
-    game_boards = build_boards(valid_input)
+    player_name = input('Enter your name:\n')
+    game_boards = build_boards(valid_input, player_name)
     my_board = game_boards[0]
     computer_board = game_boards[1]
     print_boards(my_board, computer_board)
