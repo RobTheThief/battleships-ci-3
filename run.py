@@ -74,10 +74,10 @@ class create_game_board:
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
     def find_player_row(self):
-        scores = SHEET.worksheet('Scores')
-        data = scores.get_all_values()
+        data = get_data()
+        all_values = data[0]
         index = -2
-        for row in data:
+        for row in all_values:
             try:
                 index = row.index(self.name)
                 self.current_history = row
@@ -87,17 +87,28 @@ class create_game_board:
         return index
 
     def add_new_player(self):
+        data = get_data()
+        all_values = data[0]
+        scores = data[1]
         pword = input('New player! Enter a password:\n')
-        length = len(data)
+        length = len(all_values)
         name_cell = f'A{length + 1}'
-        pword_cell = f'E{length + 1}'
+        wins_cell = f'B{length + 1}'
+        losses_cell = f'C{length + 1}'
+        streak_cell = f'D{length + 1}'
+        best_streak_cell = f'E{length + 1}'
+        pword_cell = f'F{length + 1}'
         scores.update(name_cell, self.name)
+        scores.update(wins_cell, 0)
+        scores.update(losses_cell, 0)
+        scores.update(streak_cell, 0)
+        scores.update(best_streak_cell, 0)
         scores.update(pword_cell, pword)
 
     def check_score_history(self):
-        index = find_player_row()
+        index = self.find_player_row()
         if index == -1:
-            add_new_player()
+            self.add_new_player()
         elif index > -1:
             password_wrong = True
             while password_wrong:
@@ -106,6 +117,11 @@ class create_game_board:
                     print('PREVIOUS SCORES: ','WINS', self.current_history[1], 'LOSSES', self.current_history[2])
                     password_wrong = False
                 print('Password Incorrect')
+
+def get_data():
+    scores = SHEET.worksheet('Scores')
+    all_values = scores.get_all_values()
+    return [all_values, scores]
 
 def get_random(size):
     '''
