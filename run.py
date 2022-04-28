@@ -14,14 +14,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('ci-3-python')
-
-COL_LETTERS = {
-    'A': 1,
-    'B': 3,
-    'C': 4,
-    'D': 5,
-    'E' :6,
-    }
+COL_LETTERS = ['zero', 'A', 'B', 'C', 'D', 'E']
 
 class create_game_board:
     def __init__(self, size, ships, name = 'Computer'):
@@ -31,7 +24,7 @@ class create_game_board:
         self.board_matrix = []
         self.board_matrix_obscured = []
         self.hit_count = 0
-        self.current_history
+        self.current_history = []
 
     def build_board(self):
         '''
@@ -80,32 +73,37 @@ class create_game_board:
         elif self.board_matrix[row - 1][col - 1] == ' X' or self.board_matrix[row - 1][col - 1] == ' #':
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
-    def check_score_history(self):
+    def find_player_row(self):
         scores = SHEET.worksheet('Scores')
-        pword = ''
         data = scores.get_all_values()
         index = -2
-        player_data = []
         for row in data:
             try:
                 index = row.index(self.name)
-                player_data = row
+                self.current_history = row
                 break
             except ValueError:
                 index = -1
+        return index
+
+    def add_new_player(self):
+        pword = input('New player! Enter a password:\n')
+        length = len(data)
+        name_cell = f'A{length + 1}'
+        pword_cell = f'E{length + 1}'
+        scores.update(name_cell, self.name)
+        scores.update(pword_cell, pword)
+
+    def check_score_history(self):
+        index = find_player_row()
         if index == -1:
-            pword = input('New player! Enter a password:\n')
-            length = len(data)
-            name_cell = f'A{length + 1}'
-            pword_cell = f'D{length + 1}'
-            scores.update(name_cell, self.name)
-            scores.update(pword_cell, pword)
+            add_new_player()
         elif index > -1:
             password_wrong = True
             while password_wrong:
                 pword = input('Enter your password:\n')
-                if pword == player_data[3]:
-                    print('PREVIOUS SCORES: ','WINS', player_data[1], 'LOSSES', player_data[2])
+                if pword == self.current_history[5]:
+                    print('PREVIOUS SCORES: ','WINS', self.current_history[1], 'LOSSES', self.current_history[2])
                     password_wrong = False
                 print('Password Incorrect')
 
