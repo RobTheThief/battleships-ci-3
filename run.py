@@ -15,6 +15,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('ci-3-python')
 
+COL_LETTERS = {
+    'A': 1,
+    'B': 3,
+    'C': 4,
+    'D': 5,
+    'E' :6,
+    }
+
 class create_game_board:
     def __init__(self, size, ships, name = 'Computer'):
         self.size = size
@@ -22,7 +30,8 @@ class create_game_board:
         self.name = name
         self.board_matrix = []
         self.board_matrix_obscured = []
-        self.hit_count = 0 
+        self.hit_count = 0
+        self.current_history
 
     def build_board(self):
         '''
@@ -51,7 +60,8 @@ class create_game_board:
                 if self.board_matrix[random_row][random_col] != '<>':
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
-        self.check_score_history()
+        if self.name != 'Computer':            
+            self.check_score_history()
 
     def recieve_shot(self, row, col):
         '''
@@ -71,25 +81,33 @@ class create_game_board:
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
     def check_score_history(self):
-        print(self.name)
         scores = SHEET.worksheet('Scores')
+        pword = ''
         data = scores.get_all_values()
         index = -2
-        player_history = []
+        player_data = []
         for row in data:
             try:
                 index = row.index(self.name)
-                player_history = row
+                player_data = row
                 break
             except ValueError:
                 index = -1
         if index == -1:
-            print('NAME NOT FOUND')
+            pword = input('New player! Enter a password:\n')
+            length = len(data)
+            name_cell = f'A{length + 1}'
+            pword_cell = f'D{length + 1}'
+            scores.update(name_cell, self.name)
+            scores.update(pword_cell, pword)
         elif index > -1:
-            print('PREVIOUS SCORES: ','WINS', player_history[1], 'LOSSES', player_history[2])
-        """ scores.update('B2', "test")
-        pprint(data) """
-
+            password_wrong = True
+            while password_wrong:
+                pword = input('Enter your password:\n')
+                if pword == player_data[3]:
+                    print('PREVIOUS SCORES: ','WINS', player_data[1], 'LOSSES', player_data[2])
+                    password_wrong = False
+                print('Password Incorrect')
 
 def get_random(size):
     '''
@@ -198,10 +216,10 @@ def is_off_board(coords, board):
         Returns True if it is with an error message.
     '''
     if coords[0] > board.size:
-        print('**X COORDINATE IS OFF BOARD! VALUE MUST BE',board.size, 'OR LESS')
+        print('**X COORDINATE IS OFF BOARD! VALUE MUST BE', board.size, 'OR LESS')
         return True
     if coords[1] > board.size:
-        print('**Y COORDINATE IS OFF BOARD! VALUE MUST BE',board.size, 'OR LESS')
+        print('**Y COORDINATE IS OFF BOARD! VALUE MUST BE', board.size, 'OR LESS')
         return True
     return False
     
