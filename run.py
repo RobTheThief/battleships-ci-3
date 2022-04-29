@@ -25,6 +25,7 @@ class create_game_board:
         self.board_matrix_obscured = []
         self.hit_count = 0
         self.current_history = []
+        self.data_row = 0
 
     def build_board(self):
         '''
@@ -76,15 +77,20 @@ class create_game_board:
     def find_player_row(self):
         data = get_data()
         all_values = data[0]
-        index = -2
+        count = -1
+        found = False
         for row in all_values:
             try:
-                index = row.index(self.name)
+                find = row.index(self.name)
                 self.current_history = row
+                count += 1
+                self.data_row = count
+                found = True
                 break
             except ValueError:
-                index = -1
-        return index
+                count += 1
+        return found
+        
 
     def add_new_player(self):
         data = get_data()
@@ -92,6 +98,7 @@ class create_game_board:
         scores = data[1]
         pword = input('New player! Enter a password:\n')
         length = len(all_values)
+        self.current_history = all_values[length - 1]
         name_cell = f'A{length + 1}'
         wins_cell = f'B{length + 1}'
         losses_cell = f'C{length + 1}'
@@ -106,10 +113,11 @@ class create_game_board:
         scores.update(pword_cell, pword)
 
     def check_score_history(self):
-        index = self.find_player_row()
-        if index == -1:
+        found = self.find_player_row()
+        if not found:
             self.add_new_player()
-        elif index > -1:
+        elif found:
+            print(self.data_row)
             password_wrong = True
             while password_wrong:
                 pword = input('Enter your password:\n')
@@ -117,6 +125,23 @@ class create_game_board:
                     print('PREVIOUS SCORES: ','WINS', self.current_history[1], 'LOSSES', self.current_history[2])
                     password_wrong = False
                 print('Password Incorrect')
+
+    def update_player_scores(self, win, loss):
+        self.find_player_row()
+        scores = get_data()[1]
+        win_update = int(self.current_history[1]) + int(win)
+        loss_update = int(self.current_history[2]) + int(loss)
+        scores.update(f'B{self.data_row + 1}', win_update)
+        scores.update(f'C{self.data_row + 1}', loss_update)
+        if loss == 1:
+            scores.update(f'D{self.data_row + 1}', 0)
+        elif win == 1:
+            streak_update = int(self.current_history[3]) + int(1)
+            scores.update(f'D{self.data_row + 1}', streak_update)
+        all_values = get_data()[0]
+        if int(all_values[self.data_row][3]) > int(self.current_history[4]):
+            current_streak = int(all_values[self.data_row][3])
+            scores.update(f'E{self.data_row + 1}', current_streak)
 
 def get_data():
     scores = SHEET.worksheet('Scores')
@@ -293,8 +318,10 @@ def run_game():
         print_boards(my_board, computer_board)
     if my_board.hit_count < computer_board.hit_count:
         print('********** XD HURRAY!!! YOU WIN XD **********')
+        my_board.update_player_scores(1, 0)
     else:
         print('********** ): YOU LOSE :( **********')
+        my_board.update_player_scores(0, 1)
     run_game()
 
 run_game()
