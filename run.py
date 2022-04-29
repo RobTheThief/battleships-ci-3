@@ -229,12 +229,18 @@ def validate_input(parameters, is_board_built = False):
         Returns valid input in seperate values and in integer form or
         False if input is not valid
     '''
+    
+    if print_instructions(parameters):
+        return False
 
     parameters = parameters.split()
     try:
         x = int(parameters[0])
     except ValueError:
         print('**FIRST PARAMETER IS NOT A NUMBER')
+        return False
+    except IndexError:
+        print('**NOTHING WAS ENTERED. TRY AGAIN')
         return False
     try:
         y = int(parameters[1])
@@ -279,29 +285,52 @@ def generate_coords(size):
     random_col = get_random(size)
     return [random_row, random_col]
 
-def run_game():
+def print_instructions(parameters = 'help'):
+    if parameters == 'help' or parameters == 'Help':
+        print('LEGEND: <> - SHIP, # - SUNKEN SHIP, X - MISS, . - NOT YET FIRED UPON')
+        return True
+    return False
+
+def end_round(my_board, computer_board):
+    if my_board.hit_count < computer_board.hit_count:
+        print('********** :D HURRAY!!! YOU WIN 😀 :D **********')
+        my_board.update_player_scores(1, 0)
+    else:
+        print('********** ): YOU LOSE :( **********')
+        my_board.update_player_scores(0, 1)
+    run_game()
+
+def setup_game():
     valid_input = False
-    current_turn = 'PLAYER'
+    print('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3')
     while not valid_input:
-        board_info = input('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3 \nBoard size cannot be bigger than 9:\n')
+        board_info = input('Board size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
     player_name = input('Enter your name:\n')
     game_boards = build_boards(valid_input, player_name)
     my_board = game_boards[0]
     computer_board = game_boards[1]
     print_boards(my_board, computer_board)
-    
+    print_instructions()
+    return [my_board, computer_board]
+
+def run_game():
+    current_turn = 'PLAYER'
+
+    game_boards = setup_game()
+    my_board = game_boards[0]
+    computer_board = game_boards[1]
+
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
-        valid_input = False
         unique_coords = False
         print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
-        while not valid_input or not unique_coords:
+        while not unique_coords:
             targeting = ''
             if current_turn == 'PLAYER':
-                coords = input('eg. 2 3: \n')
-                valid_input = validate_input(coords, True)
-                if valid_input == False:
-                    break
+                valid_input = False
+                while not valid_input:
+                    coords = input('eg. 2 3: \n')
+                    valid_input = validate_input(coords, True)
                 if is_off_board(valid_input, my_board) == True:
                     break
                 targeting = computer_board.recieve_shot(valid_input[0], valid_input[1])
@@ -317,12 +346,6 @@ def run_game():
                 print(current_turn, 'TARGETING: ', targeting)
                 unique_coords = True
         print_boards(my_board, computer_board)
-    if my_board.hit_count < computer_board.hit_count:
-        print('********** XD HURRAY!!! YOU WIN XD **********')
-        my_board.update_player_scores(1, 0)
-    else:
-        print('********** ): YOU LOSE :( **********')
-        my_board.update_player_scores(0, 1)
-    run_game()
+    end_round(my_board, computer_board)
 
 run_game()
