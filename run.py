@@ -14,7 +14,6 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('ci-3-python')
-COL_LETTERS = ['zero', 'A', 'B', 'C', 'D', 'E']
 
 class create_game_board:
     def __init__(self, size, ships, name = 'Computer'):
@@ -55,7 +54,7 @@ class create_game_board:
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
         if self.name != 'Computer':            
-            self.check_score_history()
+            self.login_player()
 
     def recieve_shot(self, row, col):
         '''
@@ -112,19 +111,21 @@ class create_game_board:
         scores.update(best_streak_cell, 0)
         scores.update(pword_cell, pword)
 
-    def check_score_history(self):
+    def login_player(self):
         found = self.find_player_row()
         if not found:
             self.add_new_player()
         elif found:
-            print(self.data_row)
             password_wrong = True
             while password_wrong:
                 pword = input('Enter your password:\n')
                 if pword == self.current_history[5]:
                     print('PREVIOUS SCORES: ','WINS', self.current_history[1], 'LOSSES', self.current_history[2])
+                    print('CURRENT WIN STREAK', self.current_history[3], 'BEST STREAK', self.current_history[4])
                     password_wrong = False
+                    break
                 print('Password Incorrect')
+                run_game()
 
     def update_player_scores(self, win, loss):
         self.find_player_row()
