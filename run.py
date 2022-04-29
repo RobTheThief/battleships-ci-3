@@ -232,7 +232,8 @@ def validate_input(parameters, is_board_built = False):
     
     if print_instructions(parameters):
         return False
-
+    if print_score_board(parameters):
+        return False
     parameters = parameters.split()
     try:
         x = int(parameters[0])
@@ -291,9 +292,32 @@ def print_instructions(parameters = 'help'):
         return True
     return False
 
+def sort_scores(score):
+    return score.get('score')
+
+
+def print_score_board(parameters = 'scores'):
+    if parameters == 'scores' or parameters == 'Scores':
+        scores = []
+        data = get_data()[0]
+        for row in data:
+            scores.append( { 'name': row[0], 'score': row[4] } )
+        scores.sort(key=sort_scores, reverse=True)
+        print('**TOP 5 BEST WINNING STREAKS**')
+        index = 1
+        for row in range(0, 5):
+            if index == 1:
+                print(f'{scores[index]["name"]}: {scores[index]["score"]} 🏆')
+                index += 1
+            print(f'{scores[index]["name"]}: {scores[index]["score"]}')
+            index += 1
+        print('\n')
+        return True
+    return False
+
 def end_round(my_board, computer_board):
     if my_board.hit_count < computer_board.hit_count:
-        print('********** :D HURRAY!!! YOU WIN 😀 :D **********')
+        print('********** 😀 HURRAY!!! YOU WIN 😀 **********')
         my_board.update_player_scores(1, 0)
     else:
         print('********** ): YOU LOSE :( **********')
@@ -315,6 +339,7 @@ def setup_game():
     return [my_board, computer_board]
 
 def run_game():
+    print_score_board()
     current_turn = 'PLAYER'
 
     game_boards = setup_game()
