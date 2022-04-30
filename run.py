@@ -159,7 +159,7 @@ def get_random(size):
 def build_boards(valid_input, player_name):
     '''
         Using the user input creates both boards from the create_game_board class
-        and returns an array with the player board and computer
+        and returns a list with the player board and computer
         board
     '''
     my_board = create_game_board( valid_input[0], valid_input[1], player_name )
@@ -295,7 +295,6 @@ def print_instructions(parameters = 'help'):
 def sort_scores(score):
     return score.get('score')
 
-
 def print_score_board(parameters = 'scores'):
     if parameters == 'scores' or parameters == 'Scores':
         scores = []
@@ -305,12 +304,17 @@ def print_score_board(parameters = 'scores'):
         scores.sort(key=sort_scores, reverse=True)
         print('**TOP 5 BEST WINNING STREAKS**')
         index = 1
-        for row in range(0, 5):
+        length = len(scores)
+        print('LENGTH: ',length)
+        if length > 5:
+            length = 6
+        for row in range(1, length):
             if index == 1:
                 print(f'{scores[index]["name"]}: {scores[index]["score"]} 🏆')
                 index += 1
-            print(f'{scores[index]["name"]}: {scores[index]["score"]}')
-            index += 1
+            else:
+                print(f'{scores[index]["name"]}: {scores[index]["score"]}')
+                index += 1
         print('\n')
         return True
     return False
@@ -326,7 +330,7 @@ def end_round(my_board, computer_board):
 
 def setup_game():
     valid_input = False
-    print('Enter board size first\nand then the number of ships,\nseperated by a space. eg. 2 3')
+    print('Enter board size first and then the number of ships,\nseperated by a space. eg. 2 3')
     while not valid_input:
         board_info = input('Board size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
@@ -349,12 +353,13 @@ def run_game():
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         unique_coords = False
         print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
+        print('For help type "help". To see the score board type "scores"')
         while not unique_coords:
             targeting = ''
             if current_turn == 'PLAYER':
                 valid_input = False
                 while not valid_input:
-                    coords = input('eg. 2 3: \n')
+                    coords = input('ENTER COORDINATES. eg. 2 3: \n')
                     valid_input = validate_input(coords, True)
                 if is_off_board(valid_input, my_board) == True:
                     break
