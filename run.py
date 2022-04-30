@@ -173,7 +173,7 @@ def build_boards(valid_input, player_name):
     computer_board.add_ships()
     return [my_board, computer_board]
 
-def print_board(board):
+def print_board(board, my_board):
     '''
         Formats the given board matrix row into a series of strings and 
         prints out each row in order
@@ -184,6 +184,10 @@ def print_board(board):
         x = "  ".join(row)
         rows.append(x)
     for row in rows:
+        if num_label == my_board.size:
+            print(num_label, row)
+            num_label += 1
+            break
         print(num_label, row, '\n')
         num_label += 1
 
@@ -193,7 +197,7 @@ def print_boards(my_board, computer_board):
         and the hit count over each board
     '''
     loading_delay('Boards loading...', 2)
-    print(f"------ROUND: {my_board.round_count}. {my_board.whos_turn}'S TURN------------")
+    print(f"-------- ROUND: {my_board.round_count}. {my_board.whos_turn}'S TURN --------")
     print('PLAYER BOARD, Hits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
@@ -201,12 +205,11 @@ def print_boards(my_board, computer_board):
         col_labels += f'{col_num}   '
         col_num += 1
     print(col_labels)
-    print_board(my_board.board_matrix)
+    print_board(my_board.board_matrix, my_board)
     board_label = f'COMPUTER BOARD, Hits Taken: {computer_board.hit_count} of {computer_board.ships}'
     loading_delay(board_label, 1)
     print(col_labels)
-    print_board(computer_board.board_matrix_obscured)
-    print('-----------------------------------------')
+    print_board(computer_board.board_matrix_obscured, my_board)
 
 def loading_delay(message, delay):
     print(message)
@@ -380,7 +383,6 @@ def run_game():
     computer_board = game_boards[1]
 
     current_turn = my_board.whos_turn
-    print(my_board.whos_turn)
 
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         unique_coords = False
@@ -389,7 +391,7 @@ def run_game():
             if current_turn == 'PLAYER':
                 valid_input = False
                 while not valid_input:
-                    coords = input('ENTER COORDINATES. eg. 2 3: \n')
+                    coords = input('------ ENTER COORDINATES. eg. 2 3 --------\n')
                     valid_input = validate_input(coords, True)
                 if is_off_board(valid_input, my_board) == True:
                     break
