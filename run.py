@@ -2,7 +2,11 @@ import copy
 import gspread
 import os
 from numpy import random
+from threading import Timer
 from google.oauth2.service_account import Credentials
+
+import time
+from tqdm import tqdm
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -199,6 +203,25 @@ def print_boards(my_board, computer_board):
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
 
+def loading_delay():
+    """ def delay_one():
+        print('loading.')
+    def delay_two():
+        print('loading..')
+    def delay_three():
+        print('loading...')
+
+    one = Timer(1.0, delay_one, ())
+    two = Timer(2.0, delay_two, ())
+    three = Timer(3.0, delay_three, ())
+
+    one.start()
+    two.start()
+    three.start() """
+    for i in tqdm(range(100)):
+        time.sleep(0.01)
+
+
 def validate_ship_to_board_size_ratio(valid_input):
     '''
         Check that the board area is larger that the number 
@@ -350,6 +373,7 @@ def setup_game():
     return [my_board, computer_board]
 
 def run_game():
+    loading_delay()
     print_score_board()
     current_turn = 'PLAYER'
 
