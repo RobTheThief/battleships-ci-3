@@ -189,6 +189,8 @@ def print_boards(my_board, computer_board):
         Prints both boards with row and columns labeled
         and the hit count over each board
     '''
+    loading_delay('Boards loading...', 2)
+    print('-----------------------------------------')
     print('PLAYER BOARD \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
@@ -197,10 +199,10 @@ def print_boards(my_board, computer_board):
         col_num += 1
     print(col_labels)
     print_board(my_board.board_matrix)
-    loading_delay('Player 2 board loading...', 2)
     print('COMPUTER BOARD: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
+    print('-----------------------------------------')
 
 def loading_delay(message, delay):
     print(message)
@@ -297,6 +299,8 @@ def generate_coords(size):
 def print_instructions(parameters = 'help'):
     if parameters == 'help' or parameters == 'Help':
         print('LEGEND: <> - SHIP, # - SUNKEN SHIP, X - MISS, . - NOT YET FIRED UPON')
+        print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
+        print('For help type "help". To see the score board type "scores". Clear the console type "clear"')
         return True
     return False
 
@@ -319,7 +323,6 @@ def print_score_board(parameters = 'scores'):
         print('**TOP 5 BEST WINNING STREAKS**')
         index = 1
         length = len(scores)
-        print('LENGTH: ',length)
         if length > 5:
             length = 6
         for row in range(1, length):
@@ -340,7 +343,7 @@ def end_round(my_board, computer_board):
 
 def setup_game():
     valid_input = False
-    print('Enter board size first and then the number of ships,\nseperated by a space. eg. 2 3')
+    print('Enter board size first and then the number\nof ships, seperated by a space. eg. 2 3')
     while not valid_input:
         board_info = input('Board size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
@@ -349,13 +352,14 @@ def setup_game():
     my_board = game_boards[0]
     computer_board = game_boards[1]
     print_boards(my_board, computer_board)
-    print_instructions()
     return [my_board, computer_board]
 
 def run_game():
-    loading_delay('Game loading...', 2)
     print_score_board()
     current_turn = 'PLAYER'
+
+    print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
+    print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
 
     game_boards = setup_game()
     my_board = game_boards[0]
@@ -363,8 +367,6 @@ def run_game():
 
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         unique_coords = False
-        print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
-        print('For help type "help". To see the score board type "scores"')
         while not unique_coords:
             targeting = ''
             if current_turn == 'PLAYER':
