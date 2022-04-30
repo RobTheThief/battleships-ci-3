@@ -194,7 +194,7 @@ def print_boards(my_board, computer_board):
     '''
     loading_delay('Boards loading...', 2)
     print(f"------ROUND: {my_board.round_count}. {my_board.whos_turn}'S TURN------------")
-    print('PLAYER BOARD \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
+    print('PLAYER BOARD, Hits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
     for _ in range(0, my_board.size):
@@ -202,7 +202,8 @@ def print_boards(my_board, computer_board):
         col_num += 1
     print(col_labels)
     print_board(my_board.board_matrix)
-    print('COMPUTER BOARD: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
+    board_label = f'COMPUTER BOARD, Hits Taken: {computer_board.hit_count} of {computer_board.ships}'
+    loading_delay(board_label, 1)
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
     print('-----------------------------------------')
