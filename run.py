@@ -1,7 +1,7 @@
 import copy
 import gspread
+import os
 from numpy import random
-from pprint import pprint
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -229,7 +229,8 @@ def validate_input(parameters, is_board_built = False):
         Returns valid input in seperate values and in integer form or
         False if input is not valid
     '''
-    
+    if clear_console(parameters):
+        return False
     if print_instructions(parameters):
         return False
     if print_score_board(parameters):
@@ -294,6 +295,12 @@ def print_instructions(parameters = 'help'):
 
 def sort_scores(score):
     return score.get('score')
+
+def clear_console(parameters = 'clear'):
+    if parameters == 'clear' or parameters == 'Clear':
+        os.system('clear')
+        return True
+    return False
 
 def print_score_board(parameters = 'scores'):
     if parameters == 'scores' or parameters == 'Scores':
