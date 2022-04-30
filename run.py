@@ -1,11 +1,9 @@
 import copy
 import gspread
 import os
-from numpy import random
-from threading import Timer
-from google.oauth2.service_account import Credentials
-
 import time
+from numpy import random
+from google.oauth2.service_account import Credentials
 from tqdm import tqdm
 
 SCOPE = [
@@ -204,20 +202,6 @@ def print_boards(my_board, computer_board):
     print_board(computer_board.board_matrix_obscured)
 
 def loading_delay():
-    """ def delay_one():
-        print('loading.')
-    def delay_two():
-        print('loading..')
-    def delay_three():
-        print('loading...')
-
-    one = Timer(1.0, delay_one, ())
-    two = Timer(2.0, delay_two, ())
-    three = Timer(3.0, delay_three, ())
-
-    one.start()
-    two.start()
-    three.start() """
     for i in tqdm(range(100)):
         time.sleep(0.01)
 
@@ -339,10 +323,6 @@ def print_score_board(parameters = 'scores'):
         if length > 5:
             length = 6
         for row in range(1, length):
-            if index == 1:
-                print(f'{scores[index]["name"]}: {scores[index]["score"]} 🏆')
-                index += 1
-            else:
                 print(f'{scores[index]["name"]}: {scores[index]["score"]}')
                 index += 1
         print('\n')
@@ -351,7 +331,7 @@ def print_score_board(parameters = 'scores'):
 
 def end_round(my_board, computer_board):
     if my_board.hit_count < computer_board.hit_count:
-        print('********** 😀 HURRAY!!! YOU WIN 😀 **********')
+        print('********** (: HURRAY!!! YOU WIN :) **********')
         my_board.update_player_scores(1, 0)
     else:
         print('********** ): YOU LOSE :( **********')
