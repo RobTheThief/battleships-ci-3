@@ -2,9 +2,9 @@ import copy
 import gspread
 import os
 import time
+import math
 from numpy import random
 from google.oauth2.service_account import Credentials
-from tqdm import tqdm
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -27,6 +27,9 @@ class create_game_board:
         self.hit_count = 0
         self.current_history = []
         self.data_row = 0
+        self.whos_turn = 'nobody'
+        self.turn_count = 0
+        self.round_count = 0
 
     def build_board(self):
         '''
@@ -190,7 +193,7 @@ def print_boards(my_board, computer_board):
         and the hit count over each board
     '''
     loading_delay('Boards loading...', 2)
-    print('-----------------------------------------')
+    print(f"------ROUND: {my_board.round_count}. {my_board.whos_turn}'S TURN------------")
     print('PLAYER BOARD \nHits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
@@ -230,6 +233,15 @@ def check_board_size(x):
     print('**BOARD SIZE CANNOT BE BIGGER THAN 9')
     return False
 
+def is_command(parameters):
+    if clear_console(parameters):
+        return True
+    if print_instructions(parameters):
+        return True
+    if print_score_board(parameters):
+        return True
+    return False
+
 def validate_input(parameters, is_board_built = False):
     '''
         Validates input by checking if there is more than one parameter,
@@ -238,12 +250,9 @@ def validate_input(parameters, is_board_built = False):
         Returns valid input in seperate values and in integer form or
         False if input is not valid
     '''
-    if clear_console(parameters):
+    if is_command(parameters):
         return False
-    if print_instructions(parameters):
-        return False
-    if print_score_board(parameters):
-        return False
+
     parameters = parameters.split()
     try:
         x = int(parameters[0])
@@ -280,12 +289,16 @@ def is_off_board(coords, board):
         return True
     return False
     
-def whos_turn(current_player):
+def track_rounds(current_player, my_board):
     '''
         Toggles between player and computer to keep track of turns
     '''
+    my_board.turn_count += 1
+    my_board.round_count = math.ceil(my_board.turn_count / 2)
     if current_player == 'PLAYER':
+        my_board.whos_turn = 'COMPUTER'
         return 'COMPUTER'
+    my_board.whos_turn = 'PLAYER'
     return 'PLAYER' 
 
 def generate_coords(size):
@@ -299,8 +312,8 @@ def generate_coords(size):
 def print_instructions(parameters = 'help'):
     if parameters == 'help' or parameters == 'Help':
         print('LEGEND: <> - SHIP, # - SUNKEN SHIP, X - MISS, . - NOT YET FIRED UPON')
-        print('Enter coordinates seperated by\na space to try to make a hit.\nThe top left coordinate is 1 1')
-        print('For help type "help". To see the score board type "scores". Clear the console type "clear"')
+        print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
+        print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
         return True
     return False
 
@@ -351,19 +364,22 @@ def setup_game():
     game_boards = build_boards(valid_input, player_name)
     my_board = game_boards[0]
     computer_board = game_boards[1]
+    track_rounds('Computer', my_board)
     print_boards(my_board, computer_board)
     return [my_board, computer_board]
 
 def run_game():
     print_score_board()
-    current_turn = 'PLAYER'
-
+    
     print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
     print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
 
     game_boards = setup_game()
     my_board = game_boards[0]
     computer_board = game_boards[1]
+
+    current_turn = my_board.whos_turn
+    print(my_board.whos_turn)
 
     while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
         unique_coords = False
@@ -385,8 +401,9 @@ def run_game():
                     print(targeting)
                 unique_coords = False
             if targeting == 'Hit' or targeting == 'Miss':
-                current_turn = whos_turn(current_turn)
-                print(current_turn, 'TARGETING: ', targeting)
+                targeting_message = f'{current_turn} TARGETING: {targeting}'
+                loading_delay(targeting_message, 2)
+                current_turn = track_rounds(current_turn, my_board)
                 unique_coords = True
         print_boards(my_board, computer_board)
     end_round(my_board, computer_board)
