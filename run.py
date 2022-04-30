@@ -197,14 +197,14 @@ def print_boards(my_board, computer_board):
         col_num += 1
     print(col_labels)
     print_board(my_board.board_matrix)
+    loading_delay('Player 2 board loading...', 2)
     print('COMPUTER BOARD: \nHits Taken: ', computer_board.hit_count, 'of', computer_board.ships)
     print(col_labels)
     print_board(computer_board.board_matrix_obscured)
 
-def loading_delay():
-    for i in tqdm(range(100)):
-        time.sleep(0.01)
-
+def loading_delay(message, delay):
+    print(message)
+    time.sleep(delay)
 
 def validate_ship_to_board_size_ratio(valid_input):
     '''
@@ -353,7 +353,7 @@ def setup_game():
     return [my_board, computer_board]
 
 def run_game():
-    loading_delay()
+    loading_delay('Game loading...', 2)
     print_score_board()
     current_turn = 'PLAYER'
 
