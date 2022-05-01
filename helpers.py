@@ -2,7 +2,18 @@ import math
 import time
 import os
 from numpy import random
+
 from api_calls import get_data
+
+FUNCS = {}
+
+def get_function(func, func_name):
+    """
+        Takes in a function and a string and saves the
+        string as a key and the function as a value in
+        the global dictionary FUNC.
+    """
+    FUNCS[func_name] = func
 
 def get_random(size):
     '''
@@ -156,6 +167,20 @@ def is_command(parameters):
         return True
     if print_score_board(parameters):
         return True
+    if reset_game(parameters):
+        return True
+    return False
+
+def reset_game(parameter = 'reset'):
+    """
+        Resets the game if parameter passed is equal to string 'reset' or 'Reset'.
+        Parameter passed is equal to 'reset' by default.
+        Returns False if there is no presence of defined string.
+    """
+    if parameter == 'reset' or parameter == 'Reset':
+        answer = input('Are you sure you want to reset this game? y / n\n')
+        if answer == 'y':
+           FUNCS['run_game']()
     return False
 
 def print_instructions(parameter = 'help'):

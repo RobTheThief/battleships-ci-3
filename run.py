@@ -1,4 +1,5 @@
 import copy
+
 from helpers import *
 from api_calls import *
 
@@ -190,4 +191,5 @@ def run_game():
     end_game(my_board, computer_board)
     run_game()
 
+get_function(run_game, 'run_game')
 run_game()
