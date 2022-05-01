@@ -170,7 +170,7 @@ def update_cell(cell, value, scores):
     """ 
         Updates cell on scores sheet
     """
-        scores.update(cell, value)
+    scores.update(cell, value)
 
 def get_data():
     """ 
@@ -323,17 +323,17 @@ def is_off_board(coords, board):
         return True
     return False
     
-def track_rounds(current_player, my_board):
+def track_rounds(current_player, my_board, computer_board):
     '''
         Toggles between player and computer to keep track of turns
     '''
     my_board.turn_count += 1
     my_board.round_count = math.ceil(my_board.turn_count / 2)
-    if current_player == 'PLAYER':
-        my_board.whos_turn = 'COMPUTER'
-        return 'COMPUTER'
-    my_board.whos_turn = 'PLAYER'
-    return 'PLAYER' 
+    if current_player == my_board.name:
+        my_board.whos_turn = computer_board.name
+        return computer_board.name
+    my_board.whos_turn = my_board.name
+    return my_board.name 
 
 def generate_coords(size):
     '''
@@ -398,7 +398,7 @@ def setup_game():
     game_boards = build_boards(valid_input, player_name)
     my_board = game_boards[0]
     computer_board = game_boards[1]
-    track_rounds('Computer', my_board)
+    track_rounds('nobody', my_board, computer_board)
     print_boards(my_board, computer_board)
     return [my_board, computer_board]
 
@@ -418,7 +418,7 @@ def run_game():
         unique_coords = False
         while not unique_coords:
             targeting = ''
-            if current_turn == 'PLAYER':
+            if current_turn == my_board.name:
                 valid_input = False
                 while not valid_input:
                     coords = input('------ ENTER COORDINATES. eg. 2 3 --------\n')
@@ -426,17 +426,17 @@ def run_game():
                 if is_off_board(valid_input, my_board) == True:
                     break
                 targeting = computer_board.recieve_shot(valid_input[0], valid_input[1])
-            if current_turn == 'COMPUTER':
+            if current_turn == computer_board.name:
                 valid_input = generate_coords(computer_board.size)
                 targeting = my_board.recieve_shot(valid_input[0], valid_input[1])
             if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
-                if current_turn == 'PLAYER':
+                if current_turn == my_board.name:
                     print(targeting)
                 unique_coords = False
             if targeting == 'Hit' or targeting == 'Miss':
                 targeting_message = f'{current_turn} TARGETING: {targeting}'
                 loading_delay(targeting_message, 2)
-                current_turn = track_rounds(current_turn, my_board)
+                current_turn = track_rounds(current_turn, my_board, computer_board)
                 unique_coords = True
         print_boards(my_board, computer_board)
     end_round(my_board, computer_board)
