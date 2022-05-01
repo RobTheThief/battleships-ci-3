@@ -126,6 +126,10 @@ class create_game_board:
         self.current_history = all_values[length - 1]
 
     def login_player(self):
+        """ 
+            Checks if player has an account and logs them in.
+            If no player found then redericted to create new player.
+        """
         found = self.find_player_row()
         if not found:
             self.add_new_player()
@@ -138,7 +142,7 @@ class create_game_board:
                     print('CURRENT WIN STREAK', self.current_history[3], 'BEST STREAK', self.current_history[4])
                     password_wrong = False
                     break
-                print('Password Incorrect')
+                loading_delay('Password Incorrect. Resetting game..', 2)
                 run_game()
 
     def update_player_scores(self, win, loss):
