@@ -188,6 +188,15 @@ def get_random(size):
     '''
     return random.randint(0, size)
 
+def generate_coords(size):
+    '''
+        Generates random x and y coordinates
+        and returns them in a list.
+    '''
+    random_row = get_random(size)
+    random_col = get_random(size)
+    return [random_row, random_col]
+
 def build_boards(valid_input, player_name):
     '''
         Using the user input creates both boards from the create_game_board class
@@ -266,20 +275,6 @@ def check_board_size(x):
     print('**BOARD SIZE CANNOT BE BIGGER THAN 9')
     return False
 
-def is_command(parameters):
-    """ 
-        Checks if a pre defined command has been passed
-        to the console and runs it if it has been passed.
-        Returns boolean to indicate presence of command.
-    """
-    if clear_console(parameters):
-        return True
-    if print_instructions(parameters):
-        return True
-    if print_score_board(parameters):
-        return True
-    return False
-
 def validate_input(parameters, is_board_built = False):
     '''
         Validates input by checking if there is more than one parameter,
@@ -326,29 +321,20 @@ def is_off_board(coords, board):
         print('**Y COORDINATE IS OFF BOARD! VALUE MUST BE', board.size, 'OR LESS')
         return True
     return False
-    
-def track_rounds(current_player, my_board, computer_board):
-    '''
-        Toggles between player and computer to keep track of turns
-        and updates player object with turn and round data.
-        Returns current turn player. 
-    '''
-    my_board.turn_count += 1
-    my_board.round_count = math.ceil(my_board.turn_count / 2)
-    if current_player == my_board.name:
-        my_board.whos_turn = computer_board.name
-        return computer_board.name
-    my_board.whos_turn = my_board.name
-    return my_board.name 
 
-def generate_coords(size):
-    '''
-        Generates random x and y coordinates
-        and returns them in a list.
-    '''
-    random_row = get_random(size)
-    random_col = get_random(size)
-    return [random_row, random_col]
+def is_command(parameters):
+    """ 
+        Checks if a pre defined command has been passed
+        to the console and runs it if it has been passed.
+        Returns boolean to indicate presence of command.
+    """
+    if clear_console(parameters):
+        return True
+    if print_instructions(parameters):
+        return True
+    if print_score_board(parameters):
+        return True
+    return False
 
 def print_instructions(parameter = 'help'):
     """ 
@@ -357,9 +343,10 @@ def print_instructions(parameter = 'help'):
         Returns boolean indicating presence of defined string.
     """
     if parameter == 'help' or parameter == 'Help':
-        print('LEGEND: <> - SHIP, # - SUNKEN SHIP, X - MISS, . - NOT YET FIRED UPON')
-        print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
-        print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
+        print('GAME INSTRUCTIONS:')
+        print('Legend:\nSHIP  - <>\nSUNKEN SHIP - #\nMISS - X\nNOT YET FIRED UPON - .\n')
+        print('To Fire enter coordinates seperated by a space.\nThe top left coordinate is 1 1.\n')
+        print('For help at any time type "help". To see\nthe score board type "scores". Clear\nthe console type "clear".\n')
         return True
     return False
 
@@ -405,6 +392,40 @@ def print_score_board(parameters = 'scores'):
         return True
     return False
 
+def setup_game():
+    """
+        Collects game info; board size, ship number, player name.
+        Builds the game boards from the user input.
+        Sets the turn and prints the boards.
+        Returns 2 board objects in a list. 
+    """
+    valid_input = False
+    print('First enter board size first and then the\nnumber of ships, seperated by a space. eg. 2 3')
+    while not valid_input:
+        board_info = input('Board size cannot be bigger than 9:\n')
+        valid_input = validate_input(board_info)
+    player_name = input('Enter your name:\n')
+    game_boards = build_boards(valid_input, player_name)
+    my_board = game_boards[0]
+    computer_board = game_boards[1]
+    track_rounds('nobody', my_board, computer_board)
+    print_boards(my_board, computer_board)
+    return [my_board, computer_board]
+
+def track_rounds(current_player, my_board, computer_board):
+    '''
+        Toggles between player and computer to keep track of turns
+        and updates player object with turn and round data.
+        Returns current turn player. 
+    '''
+    my_board.turn_count += 1
+    my_board.round_count = math.ceil(my_board.turn_count / 2)
+    if current_player == my_board.name:
+        my_board.whos_turn = computer_board.name
+        return computer_board.name
+    my_board.whos_turn = my_board.name
+    return my_board.name 
+
 def end_game(my_board, computer_board):
     """
         Checks to see who won at the end of the game,
@@ -419,26 +440,6 @@ def end_game(my_board, computer_board):
         print('********** ): YOU LOSE :( **********')
         my_board.update_player_scores(0, 1)
     run_game()
-
-def setup_game():
-    """
-        Collects game info; board size, ship number, player name.
-        Builds the game boards from the user input.
-        Sets the turn and prints the boards.
-        Returns 2 board objects in a list. 
-    """
-    valid_input = False
-    print('Enter board size first and then the number\nof ships, seperated by a space. eg. 2 3')
-    while not valid_input:
-        board_info = input('Board size cannot be bigger than 9:\n')
-        valid_input = validate_input(board_info)
-    player_name = input('Enter your name:\n')
-    game_boards = build_boards(valid_input, player_name)
-    my_board = game_boards[0]
-    computer_board = game_boards[1]
-    track_rounds('nobody', my_board, computer_board)
-    print_boards(my_board, computer_board)
-    return [my_board, computer_board]
 
 def run_game():
     """
