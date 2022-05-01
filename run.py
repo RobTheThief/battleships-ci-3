@@ -100,9 +100,6 @@ class create_game_board:
                 count += 1
         return found
 
-    def update_cell(self, cell, value, scores):
-        scores.update(cell, value)
-
     def add_new_player(self):
         """ 
             Creates new player in the sheet and saves the
@@ -114,12 +111,12 @@ class create_game_board:
         pword = input('New player! Enter a password:\n')
         length = len(all_values)
        
-        self.update_cell(f'A{length + 1}', self.name, scores) #Name
-        self.update_cell(f'B{length + 1}', 0, scores) #Wins
-        self.update_cell(f'C{length + 1}', 0, scores) #Losses
-        self.update_cell(f'D{length + 1}', 0, scores) #Current Streak
-        self.update_cell(f'E{length + 1}', 0, scores) #Best Streak
-        self.update_cell(f'F{length + 1}', pword, scores) #Password
+        update_cell(f'A{length + 1}', self.name, scores) #Name
+        update_cell(f'B{length + 1}', 0, scores) #Wins
+        update_cell(f'C{length + 1}', 0, scores) #Losses
+        update_cell(f'D{length + 1}', 0, scores) #Current Streak
+        update_cell(f'E{length + 1}', 0, scores) #Best Streak
+        update_cell(f'F{length + 1}', pword, scores) #Password
 
         data = get_data()
         all_values = data[0]
@@ -169,7 +166,17 @@ class create_game_board:
             best_streak = int(all_values[self.data_row][3])
             update_cell(f'E{self.data_row + 1}', best_streak, scores) #Best Streak update
 
+def update_cell(cell, value, scores):
+    """ 
+        Updates cell on scores sheet
+    """
+        scores.update(cell, value)
+
 def get_data():
+    """ 
+        Gets the spreadsheet and the cell data from the Google sheet
+        and returns a list with the cell values and the scores sheet
+    """
     scores = SHEET.worksheet('Scores')
     all_values = scores.get_all_values()
     return [all_values, scores]
@@ -195,7 +202,7 @@ def build_boards(valid_input, player_name):
 
 def print_board(board, my_board):
     '''
-        Formats the given board matrix row into a series of strings and 
+        Formats the given board matrix into a series of strings and 
         prints out each row in order
     '''
     rows = []
@@ -206,7 +213,6 @@ def print_board(board, my_board):
     for row in rows:
         if num_label == my_board.size:
             print(num_label, row)
-            num_label += 1
             break
         print(num_label, row, '\n')
         num_label += 1
@@ -232,6 +238,10 @@ def print_boards(my_board, computer_board):
     print_board(computer_board.board_matrix_obscured, my_board)
 
 def loading_delay(message, delay):
+    """ 
+        Prints a message and creates a delay for a given
+        value in seconds
+    """
     print(message)
     time.sleep(delay)
 
