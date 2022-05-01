@@ -33,15 +33,13 @@ class create_game_board:
 
     def build_board(self):
         '''
-        builds the board matrix according to size
+        builds the board matrix according to size and saves it
+        to the board object twice. The second is deep copied
+        and used as a blank board for the opponent.
         '''
-
         for row in range( 0, self.size ):
-            row_list = []
-            for col in range( 0, self.size ):
-                row_list.append(' .')
+            row_list = [' .' for cell in range( 0, self.size )]
             self.board_matrix.append(row_list)
-            row_list = []
         self.board_matrix_obscured = copy.deepcopy(self.board_matrix)
 
     def add_ships(self):
@@ -214,11 +212,10 @@ def print_board(board, my_board):
         Formats the given board matrix into a series of strings and 
         prints out each row in order
     '''
-    rows = []
+
     num_label = 1
-    for row in board:
-        x = "  ".join(row)
-        rows.append(x)
+    rows = ["  ".join(row) for row in board]
+
     for row in rows:
         if num_label == my_board.size:
             print(num_label, row)
@@ -375,10 +372,8 @@ def print_score_board(parameters = 'scores'):
         Returns boolean indicating presence of defined string.
     """
     if parameters == 'scores' or parameters == 'Scores':
-        scores = []
         data = get_data()[0]
-        for row in data:
-            scores.append( { 'name': row[0], 'score': row[4] } )
+        scores = [{ 'name': row[0], 'score': row[4] } for row in data]
         scores.sort(key=sort_scores, reverse=True)
         print('**TOP 5 BEST WINNING STREAKS**')
         index = 1
