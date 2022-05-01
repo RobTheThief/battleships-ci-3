@@ -79,6 +79,11 @@ class create_game_board:
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
     def find_player_row(self):
+        """
+            Finds which row the players data is on
+            and saves the data and the row number to
+            the board object. 
+        """
         data = get_data()
         all_values = data[0]
         count = -1
@@ -94,27 +99,31 @@ class create_game_board:
             except ValueError:
                 count += 1
         return found
-        
+
+    def update_cell(self, cell, value, scores):
+        scores.update(cell, value)
 
     def add_new_player(self):
+        """ 
+            Creates new player in the sheet and saves the
+            current_history to the board object
+        """
         data = get_data()
         all_values = data[0]
         scores = data[1]
         pword = input('New player! Enter a password:\n')
         length = len(all_values)
+       
+        self.update_cell(f'A{length + 1}', self.name, scores) #Name
+        self.update_cell(f'B{length + 1}', 0, scores) #Wins
+        self.update_cell(f'C{length + 1}', 0, scores) #Losses
+        self.update_cell(f'D{length + 1}', 0, scores) #Current Streak
+        self.update_cell(f'E{length + 1}', 0, scores) #Best Streak
+        self.update_cell(f'F{length + 1}', pword, scores) #Password
+
+        data = get_data()
+        all_values = data[0]
         self.current_history = all_values[length - 1]
-        name_cell = f'A{length + 1}'
-        wins_cell = f'B{length + 1}'
-        losses_cell = f'C{length + 1}'
-        streak_cell = f'D{length + 1}'
-        best_streak_cell = f'E{length + 1}'
-        pword_cell = f'F{length + 1}'
-        scores.update(name_cell, self.name)
-        scores.update(wins_cell, 0)
-        scores.update(losses_cell, 0)
-        scores.update(streak_cell, 0)
-        scores.update(best_streak_cell, 0)
-        scores.update(pword_cell, pword)
 
     def login_player(self):
         found = self.find_player_row()
