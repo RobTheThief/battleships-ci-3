@@ -146,21 +146,28 @@ class create_game_board:
                 run_game()
 
     def update_player_scores(self, win, loss):
+        """ 
+            Updates the database for player for wins, losses, current streak,
+            best streak.
+        """
         self.find_player_row()
         scores = get_data()[1]
+
         win_update = int(self.current_history[1]) + int(win)
+        update_cell(f'B{self.data_row + 1}', win_update, scores) #Wins
+
         loss_update = int(self.current_history[2]) + int(loss)
-        scores.update(f'B{self.data_row + 1}', win_update)
-        scores.update(f'C{self.data_row + 1}', loss_update)
+        update_cell(f'C{self.data_row + 1}', loss_update, scores) #Lossses
+
         if loss == 1:
-            scores.update(f'D{self.data_row + 1}', 0)
+            update_cell(f'D{self.data_row + 1}', 0, scores) #Current Streak reset to 0
         elif win == 1:
             streak_update = int(self.current_history[3]) + int(1)
-            scores.update(f'D{self.data_row + 1}', streak_update)
+            update_cell(f'D{self.data_row + 1}', streak_update, scores) #Current Streak increase
         all_values = get_data()[0]
         if int(all_values[self.data_row][3]) > int(self.current_history[4]):
-            current_streak = int(all_values[self.data_row][3])
-            scores.update(f'E{self.data_row + 1}', current_streak)
+            best_streak = int(all_values[self.data_row][3])
+            update_cell(f'E{self.data_row + 1}', best_streak, scores) #Best Streak update
 
 def get_data():
     scores = SHEET.worksheet('Scores')
