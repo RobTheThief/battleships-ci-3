@@ -222,8 +222,7 @@ def print_boards(my_board, computer_board):
         Prints both boards with row and columns labeled
         and the hit count over each board
     '''
-    loading_delay('Boards loading...', 2)
-    print(f"-------- ROUND: {my_board.round_count}. {my_board.whos_turn}'S TURN --------")
+    print(f"-------- ROUND: {my_board.round_count}. {my_board.whos_turn}'s Turn --------")
     print('PLAYER BOARD, Hits Taken: ', my_board.hit_count, 'of', my_board.ships)
     col_num = 1
     col_labels = '   '
@@ -268,6 +267,11 @@ def check_board_size(x):
     return False
 
 def is_command(parameters):
+    """ 
+        Checks if a pre defined command has been passed
+        to the console and runs it if it has been passed.
+        Returns boolean to indicate presence of command.
+    """
     if clear_console(parameters):
         return True
     if print_instructions(parameters):
@@ -281,8 +285,8 @@ def validate_input(parameters, is_board_built = False):
         Validates input by checking if there is more than one parameter,
         that only numbers are input, the board size, and board size to
         ship ratio is correct.
-        Returns valid input in seperate values and in integer form or
-        False if input is not valid
+        Returns valid input in seperate values and in integer form in a
+        list or False if input is not valid.
     '''
     if is_command(parameters):
         return False
@@ -326,6 +330,8 @@ def is_off_board(coords, board):
 def track_rounds(current_player, my_board, computer_board):
     '''
         Toggles between player and computer to keep track of turns
+        and updates player object with turn and round data.
+        Returns current turn player. 
     '''
     my_board.turn_count += 1
     my_board.round_count = math.ceil(my_board.turn_count / 2)
@@ -338,13 +344,19 @@ def track_rounds(current_player, my_board, computer_board):
 def generate_coords(size):
     '''
         Generates random x and y coordinates
+        and returns them in a list.
     '''
     random_row = get_random(size)
     random_col = get_random(size)
     return [random_row, random_col]
 
-def print_instructions(parameters = 'help'):
-    if parameters == 'help' or parameters == 'Help':
+def print_instructions(parameter = 'help'):
+    """ 
+        Prints help information if parameter passed is equal to string 'Help' or 'help'.
+        Parameter passed is equal to 'help' by default.
+        Returns boolean indicating presence of defined string.
+    """
+    if parameter == 'help' or parameter == 'Help':
         print('LEGEND: <> - SHIP, # - SUNKEN SHIP, X - MISS, . - NOT YET FIRED UPON')
         print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
         print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
@@ -352,15 +364,29 @@ def print_instructions(parameters = 'help'):
     return False
 
 def sort_scores(score):
+    """
+        Helper function for sort() method to sort scores
+    """
     return score.get('score')
 
 def clear_console(parameters = 'clear'):
+    """
+        Clears the console if parameter passed is equal to string 'Clear' or 'clear'.
+        Parameter passed is equal to 'clear' by default.
+        Returns boolean indicating presence of defined string.
+    """
     if parameters == 'clear' or parameters == 'Clear':
         os.system('clear')
         return True
     return False
 
 def print_score_board(parameters = 'scores'):
+    """
+        Prints the tops 5 best winning streaks from the database if parameter
+        passed is equal to string 'Scores' or 'scores'. Parameter passed is
+        equal to 'scores' by default.
+        Returns boolean indicating presence of defined string.
+    """
     if parameters == 'scores' or parameters == 'Scores':
         scores = []
         data = get_data()[0]
@@ -379,7 +405,13 @@ def print_score_board(parameters = 'scores'):
         return True
     return False
 
-def end_round(my_board, computer_board):
+def end_game(my_board, computer_board):
+    """
+        Checks to see who won at the end of the game,
+        Prints the appropriate message, updates
+        the database, and runs a new game.
+
+    """
     if my_board.hit_count < computer_board.hit_count:
         print('********** (: HURRAY!!! YOU WIN :) **********')
         my_board.update_player_scores(1, 0)
@@ -389,6 +421,12 @@ def end_round(my_board, computer_board):
     run_game()
 
 def setup_game():
+    """
+        Collects game info; board size, ship number, player name.
+        Builds the game boards from the user input.
+        Sets the turn and prints the boards.
+        Returns 2 board objects in a list. 
+    """
     valid_input = False
     print('Enter board size first and then the number\nof ships, seperated by a space. eg. 2 3')
     while not valid_input:
@@ -403,10 +441,11 @@ def setup_game():
     return [my_board, computer_board]
 
 def run_game():
+    """
+        Main game loop that handles the flow of the program.
+    """
     print_score_board()
-    
-    print('Enter coordinates seperated by a space to\ntry to make a hit. The top left coordinate\nis 1 1.\n')
-    print('For help type "help". To see the score\nboard type "scores". Clear the console\ntype "clear".\n')
+    print_instructions()
 
     game_boards = setup_game()
     my_board = game_boards[0]
@@ -434,11 +473,11 @@ def run_game():
                     print(targeting)
                 unique_coords = False
             if targeting == 'Hit' or targeting == 'Miss':
-                targeting_message = f'{current_turn} TARGETING: {targeting}'
+                targeting_message = f'{current_turn} Targeting: {targeting}'
                 loading_delay(targeting_message, 2)
                 current_turn = track_rounds(current_turn, my_board, computer_board)
                 unique_coords = True
         print_boards(my_board, computer_board)
-    end_round(my_board, computer_board)
+    end_game(my_board, computer_board)
 
 run_game()
