@@ -112,41 +112,34 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 - #### First Time Visitor Goals
 
-  1. As a First Time Visitor, .....
+  1. As a First Time Visitor, I want to understand clearly the game mechanics.
      1. Solution
      2. Solution
      3. Solution
-  2. As a First Time Visitor, ....
+  2. As a First Time Visitor, I want to understand the game controls.
      1. Solution
      2. Solution
      3. Solution
-  3. As a First Time Visitor, I want to be able.....
+  3. As a First Time Visitor, I want to be able keep track of score.
      1. Solution
      2. Solution
      3. Solution
 
 - #### Returning Visitor Goals
 
-  1. As a Returning Visitor, I want to find ....
+  1. As a Returning Visitor, see my previous scores and play again.
      1. Solution
      2. Solution
      3. Solution
   2. As a Returning Visitor, I want to ....
-      1. Solution
-     2. Solution
-     3. Solution
-  3. As a Returning Visitor, I want to ....
-     1. Solution
-     2. Solution
-     3. Solution
 
 ### Known Bugs
 
 #### Solved Bugs
 
 - Having split the code up into modules the run_game function needed to me accessible in helpers
-  but imorting run into helpers caused a circular import error.
-    - I was able to export the function by using a function that takes in a function as a parameter
+  but importing run into helpers caused a circular import error.
+    - I was able to export the function by creating a function that takes in a function as a parameter
     and saves it to a dictionary in the global scope of the helpers module.
 
 #### Remaining Bugs
@@ -164,11 +157,11 @@ Google Sheets API to access a Google sheet and keep scores for players.
   - PEP8
     All three files passed the PEP8 validator tests:
     
-    run.py
+    **run.py**
     ![Run](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/run_pep8.png)
-    api_calls.py
+    **api_calls.py**
     ![API](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/api_pep8.png)
-    helpers.py
+    **helpers.py**
     ![Helpers](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/helpers_pep8.png)
 
 
@@ -177,7 +170,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - Local deployment was achieved with with Python from the console. The game was developed on a Ubuntu OS and so was already installed. Steps are as follows:
   - Run `python3 run.py` in the terminal with root directory of the project.
 
-- Heroku Deployment
+- Heroku Deployment:
     - Create a new Heroku app.
     - Set the build packs to `Python` and `NodeJS` in that order.
     - Set Config Vars key value pairs for:
@@ -191,7 +184,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
 The live link can be found here - https://battleships-ci-3.herokuapp.com/
 
 ## Credits
-    Any help you had, tutorials, contriputions
+  Any help you had, tutorials, contriputions
 
 ### Content
 
