@@ -157,9 +157,12 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
   - PEP8
     All three files passed the PEP8 validator tests:
-
+    
+    run.py
     ![Run](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/run_pep8.png)
+    api_calls.py
     ![API](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/api_pep8.png)
+    helpers.py
     ![Helpers](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/helpers_pep8.png)
 
 
