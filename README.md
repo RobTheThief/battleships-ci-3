@@ -37,15 +37,15 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - **Score board**
 
   - Ability to add player name to keep track of score by means of a cloud based database.  
-  The score board is viewed at the beginning of each game.
+  The score board is viewed at the beginning of each game or through game commands.
 
-  ![Feature Name](http://image)
+  ![Feature Name](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/score_board.png)
 
 - **Coordinate based input**
 
-  - Using the row and column labels the player can enter the coordinates to fire upon.
+  - Using the row and column, or X, Y the player can enter the coordinates to fire upon.
 
-  ![Feature Name](http://image)
+  ![Feature Name](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/coordinates.png)
 
 - **Play against the computer**
 
