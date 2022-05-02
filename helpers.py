@@ -204,11 +204,30 @@ def is_command(parameters):
     """
     if clear_console(parameters):
         return True
-    if print_instructions(parameters):
+    if print_help(parameters):
         return True
     if print_score_board(parameters):
         return True
     if reset_game(parameters):
+        return True
+    if about(parameters):
+        return True
+    return False
+
+
+def about(parameter='about'):
+    if parameter == 'about' or parameter == 'About':
+        print(
+                '\n------------ How to play -----------------',
+                '\nBattleships is played by guessing the',
+                '\ncoordinates of your opponents ships.',
+                '\nYou choose your coordinates using numbers',
+                '\n1 - 9.  The first number represents a row,',
+                '\nor "X" and the second is a column, or "Y.',
+                '\nThe first player to destroy all of their',
+                '\noppenents ships wins'
+                '\n------------------------------------------\n',
+        )
         return True
     return False
 
@@ -228,7 +247,7 @@ def reset_game(parameter='reset'):
     return False
 
 
-def print_instructions(parameter='help'):
+def print_help(parameter='help'):
     """
         Prints help information if parameter passed is
         equal to string 'Help' or 'help'. Parameter
@@ -237,29 +256,25 @@ def print_instructions(parameter='help'):
         string.
     """
     if parameter == 'help' or parameter == 'Help':
-        print('GAME INSTRUCTIONS:')
+        print('------------ GAME HELP -------------')
         print(
                 'Legend:\nSHIP  - <>\nSUNKEN SHIP',
                 '- #\nMISS - X\nNOT YET FIRED UPON - .\n'
         )
         print(
                 'To Fire enter coordinates seperated by',
-                'a space.\nThe top left coordinate is 1 1.\n')
+                '\na space. The top left coordinate is 1 1.\n')
         print(
                 'For help at any time type "help". To',
-                'see\nthe score board type "scores".',
-                'Clear\nthe console type "clear".'
+                '\nsee the score board type "scores".',
+                '\nClear the console type "clear". To',
+                '\nreset the game type "reset" To',
+                '\nlearn more about the game mechanics',
+                '\ntype "about"',
         )
-        print('To reset the game type "reset"\n')
+        print('------------------------------------\n')
         return True
     return False
-
-
-def sort_scores(score):
-    """
-        Helper function for sort() method to sort scores
-    """
-    return score.get('score')
 
 
 def clear_console(parameters='clear'):
@@ -276,6 +291,13 @@ def clear_console(parameters='clear'):
     return False
 
 
+def sort_scores(score):
+    """
+        Helper function for sort() method to sort scores
+    """
+    return score.get('score')
+
+
 def print_score_board(parameters='scores'):
     """
         Prints the tops 5 best winning streaks from the database if parameter
@@ -287,7 +309,7 @@ def print_score_board(parameters='scores'):
         data = get_data()[0]
         scores = [{'name': row[0], 'score': row[4]} for row in data]
         scores.sort(key=sort_scores, reverse=True)
-        print('**TOP 5 BEST WINNING STREAKS**')
+        print('-----TOP 5 BEST WINNING STREAKS-----')
         index = 1
         length = len(scores)
         if length > 5:
@@ -295,7 +317,7 @@ def print_score_board(parameters='scores'):
         for row in range(1, length):
             print(f'{scores[index]["name"]}: {scores[index]["score"]}')
             index += 1
-        print('\n')
+        print('------------------------------------\n')
         return True
     return False
 

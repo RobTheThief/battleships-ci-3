@@ -173,7 +173,7 @@ def run_game():
         Main game loop that handles the flow of the program.
     """
     print_score_board()
-    print_instructions()
+    print_help()
 
     game_boards = setup_game(create_game_board)
     my_board = game_boards[0]
