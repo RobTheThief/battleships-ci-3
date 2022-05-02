@@ -100,11 +100,11 @@ Google Sheets API to access a Google sheet and keep scores for players.
 1. [GitHub:](https://github.com/)
    - GitHub is used to store the projects code after being pushed from Git.
 1. [Heroku:](https://www.heroku.com/)
-  - Was used to host the game.
+   - Was used to host the game.
 1. [Lucid:](https://www.lucidchart.com/)
    - Was used to make the logic flow chart in this readme.
 1. [Balsamiq:](https://balsamiq.com/)
-  - Was used to create the wireframe for the game.
+   - Was used to create the wireframe for the game.
 
 ## TESTING
 
@@ -155,41 +155,25 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Validator Testing
 
-- HTML
-  - No errors were returned when passing through the official W3C validator.
-    ![HTML VALIDATOR](https://link to screenshot)
-- CSS
-  - No errors were found when passing through the official(Jigsaw) validator.
-    ![CSS VALIDATOR](https://link to screenshot)
-- Accessibility
-
-  - I confirm that the colours and fonts are easy to read and accessible by running it through the lighthouse in devtools.
-
-  ![LIGHTHOUSE METRICS](https://link to screenshot)
-  
-  - JSHint
-
   - PEP8
 
 ## Deployment
 
-- The site was deployed to GitHub pages. The steps to deploy are as follows:
-  - In the GitHub repository, navigate to the Settings tab
-  - From the source section drop-down menu, select the main branch.
-  - Once the main branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
-
-The live link can be found here - https://link
-
 - Local deployment was achieved with with Python from the console. The game was developed on a Ubuntu OS and so was already installed. Steps are as follows:
-  - Run `python3 -m http.server` in the terminal with root directory of the project.
-  - hold ctrl and click on the link provided in the terminal.
-  - getting the ip adderss of the PC I was able to also access this server from my mobiles device.
+  - Run `python3 run.py` in the terminal with root directory of the project.
 
-- Heroku
-    - Step 1
-    - Step 2
+  - Heroku
+      - Create a new Heroku app.
+      - Set the build packs to `Python` and `NodeJS` in that order.
+      - Set Config Vars key value pairs for:
+        1. `PORT`: `8000`
+        1. `CREDS`: `{CREDS Object}` where {CREDS Object} is from the credentials file dowoloaded from Google Cloud Platform.
+      - Enter `heroku login -i` command in the terminal with root directory of the project.
+      - Enter Heroku username and password.
+      - Enter `git push --set-upstream https://git.heroku.com/battleships-ci-3.git main` to deploy.
+      - Enter `git push --set-upstream https://github.com/RobTheThief/battleships-ci-3.git main` to reset upstream to github.
 
-The live link can be found here - https://link
+The live link can be found here - https://battleships-ci-3.herokuapp.com/
 
 ## Credits
     Any help you had, tutorials, contriputions
