@@ -50,17 +50,17 @@ class create_game_board:
         '''
             checks if given coordinates are a hit or miss and updates the board
         '''
-
-        if self.board_matrix[row - 1][col - 1] == '<>':
+        target = self.board_matrix[row - 1][col - 1]
+        if target == '<>':
             self.board_matrix[row - 1][col - 1] = ' #'
             self.board_matrix_obscured[row - 1][col - 1] = ' #'
             self.hit_count += 1
             return 'Hit'
-        elif self.board_matrix[row - 1][col - 1] == ' .':
+        elif target == ' .':
             self.board_matrix[row - 1][col - 1] = ' X'
             self.board_matrix_obscured[row - 1][col - 1] = ' X'
             return 'Miss'
-        elif self.board_matrix[row - 1][col - 1] == ' X' or self.board_matrix[row - 1][col - 1] == ' #':
+        elif target == ' X' or target == ' #':
             return '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN'
 
     def find_player_row(self):
@@ -120,8 +120,10 @@ class create_game_board:
             while password_wrong:
                 pword = input('Enter your password:\n')
                 if pword == self.current_history[5]:
-                    print('PREVIOUS SCORES: ', 'WINS', self.current_history[1], 'LOSSES', self.current_history[2])
-                    print('CURRENT WIN STREAK', self.current_history[3], 'BEST STREAK', self.current_history[4])
+                    scores_line_1 = f'Wins{self.current_history[1]} Losses {self.current_history[2]}'
+                    scores_line_2 = f'Current win streak {self.current_history[3]} Best win streak {self.current_history[4]}'
+                    print(scores_line_1)
+                    print(scores_line_2)
                     password_wrong = False
                     break
                 loading_delay('Password Incorrect. Resetting game..', 2)

@@ -26,6 +26,9 @@ Google Sheets API to access a Google sheet and keep scores for players.
   - #### Wireframe
     - This wireframe was used initially to get an idea how the game would look in the terminal:
       ![Wireframe Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/battleships-ci-3_wireframe.png)
+  - #### Logic Flow Chart
+    - This flow chart was used initially to work out the logic of the game:
+      ![Flow chart Screenshot](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/logic_flowchart.png)
 
 ## FEATURES
 
