@@ -90,9 +90,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Languages Used
 
-- [HTML5](https://en.wikipedia.org/wiki/HTML5)
-- [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
-- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+- [PYTHON](https://en.wikipedia.org/wiki/Python_(programming_language))
+- [GOOGLE SHEETS](https://en.wikipedia.org/wiki/Google_Sheets)
 
 ### Frameworks, Libraries & Programs Used
 
@@ -100,8 +99,12 @@ Google Sheets API to access a Google sheet and keep scores for players.
    - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 1. [GitHub:](https://github.com/)
    - GitHub is used to store the projects code after being pushed from Git.
-1. [Other Tech:](https://link)
-   - What it was used for
+1. [Heroku:](https://www.heroku.com/)
+  - Was used to host the game.
+1. [Lucid:](https://www.lucidchart.com/)
+   - Was used to make the logic flow chart in this readme.
+1. [Balsamiq:](https://balsamiq.com/)
+  - Was used to create the wireframe for the game.
 
 ## TESTING
 
