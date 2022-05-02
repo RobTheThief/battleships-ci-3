@@ -149,8 +149,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Further Testing
 
-- The Website was tested on Google Chrome, Firefox, Microsoft Edge, Brave Browser, Ecosia and Safari.
-- The website was viewed on a variety of devices such as Desktop, Laptop, Samsung S9, S10, iPhone X.
+- Tested locally and on the Code Institute Heroku terminal.
+- Test giving the program invalid input; wrong characters, off board values, too many ships for board size, board size too big.
 - Friends and family members were asked to review the site and documentation to point out any bugs and/or user experience issues.
 
 ### Validator Testing
@@ -162,16 +162,16 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - Local deployment was achieved with with Python from the console. The game was developed on a Ubuntu OS and so was already installed. Steps are as follows:
   - Run `python3 run.py` in the terminal with root directory of the project.
 
-  - Heroku
-      - Create a new Heroku app.
-      - Set the build packs to `Python` and `NodeJS` in that order.
-      - Set Config Vars key value pairs for:
-        1. `PORT`: `8000`
-        1. `CREDS`: `{CREDS Object}` where {CREDS Object} is from the credentials file dowoloaded from Google Cloud Platform.
-      - Enter `heroku login -i` command in the terminal with root directory of the project.
-      - Enter Heroku username and password.
-      - Enter `git push --set-upstream https://git.heroku.com/battleships-ci-3.git main` to deploy.
-      - Enter `git push --set-upstream https://github.com/RobTheThief/battleships-ci-3.git main` to reset upstream to github.
+- Heroku Deployment
+    - Create a new Heroku app.
+    - Set the build packs to `Python` and `NodeJS` in that order.
+    - Set Config Vars key value pairs for:
+      1. `PORT`: `8000`
+      1. `CREDS`: `{CREDS Object}` where {CREDS Object} is from the credentials file dowoloaded from Google Cloud Platform.
+    - Enter `heroku login -i` command in the terminal with root directory of the project.
+    - Enter Heroku username and password.
+    - Enter `git push --set-upstream https://git.heroku.com/battleships-ci-3.git main` to deploy.
+    - Enter `git push --set-upstream https://github.com/RobTheThief/battleships-ci-3.git main` to reset upstream to github.
 
 The live link can be found here - https://battleships-ci-3.herokuapp.com/
 
