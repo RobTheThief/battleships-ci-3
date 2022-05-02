@@ -120,8 +120,16 @@ class create_game_board:
             while password_wrong:
                 pword = input('Enter your password:\n')
                 if pword == self.current_history[5]:
-                    scores_line_1 = f'Wins{self.current_history[1]} Losses {self.current_history[2]}'
-                    scores_line_2 = f'Current win streak {self.current_history[3]} Best win streak {self.current_history[4]}'
+                    scores_line_1 = (
+                        f'\nWins: {self.current_history[1]} '
+                        f'Losses: {self.current_history[2]}'
+                    )
+                    scores_line_2 = (
+                        f'Current win streak: '
+                        f'{self.current_history[3]} '
+                        f'Best win streak: '
+                        f'{self.current_history[4]}'
+                    )
                     print(scores_line_1)
                     print(scores_line_2)
                     password_wrong = False
@@ -144,14 +152,20 @@ class create_game_board:
         update_cell(f'C{self.data_row + 1}', loss_update, scores)  # Lossses
 
         if loss == 1:
-            update_cell(f'D{self.data_row + 1}', 0, scores)  # Current Streak reset to 0
+            update_cell(
+                f'D{self.data_row + 1}', 0, scores
+            )  # Current Streak reset to 0
         elif win == 1:
             streak_update = int(self.current_history[3]) + int(1)
-            update_cell(f'D{self.data_row + 1}', streak_update, scores)  # C urrent Streak increase
+            update_cell(
+                f'D{self.data_row + 1}', streak_update, scores
+            )  # C urrent Streak increase
         all_values = get_data()[0]
         if int(all_values[self.data_row][3]) > int(self.current_history[4]):
             best_streak = int(all_values[self.data_row][3])
-            update_cell(f'E{self.data_row + 1}', best_streak, scores)  # Best Streak update
+            update_cell(
+                f'E{self.data_row + 1}', best_streak, scores
+            )  # Best Streak update
 
 
 def run_game():
@@ -167,21 +181,27 @@ def run_game():
 
     current_turn = my_board.whos_turn
 
-    while my_board.hit_count < my_board.ships and computer_board.hit_count < computer_board.ships:
+    while (
+            my_board.hit_count < my_board.ships and
+            computer_board.hit_count < computer_board.ships
+    ):
         unique_coords = False
         while not unique_coords:
             targeting = ''
             if current_turn == my_board.name:
                 valid_input = False
                 while not valid_input:
-                    coords = input('------ ENTER COORDINATES. eg. 2 3 --------\n')
+                    coords = input(
+                        '------ ENTER COORDINATES. eg. 2 3 --------\n')
                     valid_input = validate_input(coords, True)
-                if is_off_board(valid_input, my_board) == True:
+                if is_off_board(valid_input, my_board):
                     break
-                targeting = computer_board.recieve_shot(valid_input[0], valid_input[1])
+                targeting = computer_board.recieve_shot(
+                    valid_input[0], valid_input[1])
             if current_turn == computer_board.name:
                 valid_input = generate_coords(computer_board.size)
-                targeting = my_board.recieve_shot(valid_input[0], valid_input[1])
+                targeting = my_board.recieve_shot(
+                    valid_input[0], valid_input[1])
             if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
                 if current_turn == my_board.name:
                     print(targeting)
@@ -189,11 +209,13 @@ def run_game():
             if targeting == 'Hit' or targeting == 'Miss':
                 targeting_message = f'{current_turn} Targeting: {targeting}'
                 loading_delay(targeting_message, 2)
-                current_turn = track_rounds(current_turn, my_board, computer_board)
+                current_turn = track_rounds(
+                    current_turn, my_board, computer_board)
                 unique_coords = True
         print_boards(my_board, computer_board)
     end_game(my_board, computer_board)
     run_game()
+
 
 get_function(run_game, 'run_game')
 run_game()
