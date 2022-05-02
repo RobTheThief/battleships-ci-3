@@ -4,7 +4,7 @@ A remake of the popular pen and paper game Battleships in the command line.
 Boards are printed out using keyboard characters in a matrix. It uses the
 Google Sheets API to access a Google sheet and keep scores for players. 
 
-![Responsive Mockup]()
+![Responsive Mockup](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/responsive_mockup_battleships.png)
 
 ## User Experience (UX)
 
