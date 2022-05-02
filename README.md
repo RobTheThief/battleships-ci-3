@@ -1,3 +1,5 @@
+### Design {#design}
+
 # Battleships Command Line Game
 
 A remake of the popular pen and paper game Battleships in the command line.
