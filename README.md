@@ -187,14 +187,5 @@ Google Sheets API to access a Google sheet and keep scores for players.
 The live link can be found here - https://battleships-ci-3.herokuapp.com/
 
 ## Credits
-  Any help you had, tutorials, contriputions
-
-### Content
-
-- icons, code form other sources
-
-### Media
-
-- Photos [Source](https://link)
-- Other photos [Source](https://link)
-- Audio [Source](https://link)
+  
+  The Code Institute Heroku console was used to deploy the game.
