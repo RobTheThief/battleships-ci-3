@@ -83,6 +83,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
     1. "scores" is used to print out the score board that was used at the begining of the game.
     1. "reset" is used to reset the game. The player is asked to confirm command first.
     1. "clear" is used to clear the visible console.
+    1. "about" is used to learn more about the game mechanics if you are unfamiliar with Battleships.
 
   ![Random ship placement](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/game_commands.png)
 
