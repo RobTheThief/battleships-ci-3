@@ -76,6 +76,15 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
   ![Random ship placement](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/random_ship_placement.png)
 
+- **In Game Commands**
+
+  - After the game starts instead of entering coordinates the player can enger 4 different commands
+    1. "help" is used to print out the game instructions that were printed at the beginning of the game.
+    1. "scores" is used to print out the score board that was used at the begining of the game.
+    1. "reset" is used to reset the game. The player is asked to confirm command first.
+    1. "clear" is used to clear the visible console.
+
+  ![Random ship placement](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/game_commands.png)
 
 ## Technologies Used
 

@@ -193,7 +193,8 @@ def print_instructions(parameter = 'help'):
         print('GAME INSTRUCTIONS:')
         print('Legend:\nSHIP  - <>\nSUNKEN SHIP - #\nMISS - X\nNOT YET FIRED UPON - .\n')
         print('To Fire enter coordinates seperated by a space.\nThe top left coordinate is 1 1.\n')
-        print('For help at any time type "help". To see\nthe score board type "scores". Clear\nthe console type "clear".\n')
+        print('For help at any time type "help". To see\nthe score board type "scores". Clear\nthe console type "clear".')
+        print('To reset the game type "reset"\n')
         return True
     return False
 
