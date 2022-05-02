@@ -114,25 +114,27 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - #### First Time Visitor Goals
 
   1. As a First Time Visitor, I want to understand clearly the game mechanics.
-     1. Solution
-     2. Solution
-     3. Solution
+     1. When the game loads there are instructions on how to set up the game. 
+     2. When the game loads there are instructions on how to use game commands and in particular there are 'help' and 'about' commands that give an even more detailed discription of how to play the game. 
+     3. A legend is printed to describe the different symbols on the board.
   2. As a First Time Visitor, I want to understand the game controls.
-     1. Solution
-     2. Solution
-     3. Solution
+     1. The 'about' command will describe the how the coordinates work.
+     2. The introduction information and the 'help' command describe how to enter coordinates.
+     3. Upon being prompted for input an example is given.
   3. As a First Time Visitor, I want to be able keep track of score.
-     1. Solution
-     2. Solution
-     3. Solution
+     1. At the beginning of the game the top 5 best winning streaks are printed.
+     2. Every time a shot is fired 'Hit' or 'Miss' is printed. 
+     3. Each board has the number of hits taken displayed in each round.
+     4. At the end of the game the results are recorded to the database.
+     5. The user can type 'scores' at any time to see the top 5 best winning streaks from past users.
 
 - #### Returning Visitor Goals
 
   1. As a Returning Visitor, see my previous scores and play again.
-     1. Solution
-     2. Solution
-     3. Solution
-  2. As a Returning Visitor, I want to ....
+     1. At the beginning of the game the top 5 best winning streaks are printed.
+     2. When the user logs in again their entire score history is printed.
+     3. The user can type 'scores' at any time to see the top 5 best winning streaks from past users.
+     4. At the end of the game the results are recorded to the database.
 
 ### Known Bugs
 
