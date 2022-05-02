@@ -142,10 +142,16 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Known Bugs
 
-- Bug description
-  - Solution if any:
-  1. point
-  2. point
+#### Solved Bugs
+
+- Having split the code up into modules the run_game function needed to me accessible in helpers
+  but imorting run into helpers caused a circular import error.
+    - I was able to export the function by using a function that takes in a function as a parameter
+    and saves it to a dictionary in the global scope of the helpers module.
+
+#### Remaining Bugs
+
+- No remaining bugs found
 
 ### Further Testing
 
