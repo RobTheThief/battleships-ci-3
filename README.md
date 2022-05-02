@@ -158,12 +158,22 @@ Google Sheets API to access a Google sheet and keep scores for players.
 ### Validator Testing
 
   - PEP8
+
+    Validations errors that were found consisted mainly of 'Trailing whitespace' errors and 'line too long'
+    errors and one "comparison to True should be 'if cond is True:' or 'if cond:'".
+
+    White spaces were simply deleted. Line too long errors were solved mainly by breaking up f stings and
+    using parenthesis to enclose them, as well as editing docstrings.
+    The comparison error was solved by simply deleting '== True' as this is extra or redundant.
+
     All three files passed the PEP8 validator tests:
     
     **run.py**
     ![Run](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/run_pep8.png)
+
     **api_calls.py**
     ![API](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/api_pep8.png)
+
     **helpers.py**
     ![Helpers](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/helpers_pep8.png)
 
