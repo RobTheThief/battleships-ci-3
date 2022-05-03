@@ -3,7 +3,7 @@ import time
 import os
 from numpy import random
 
-from api_calls import get_data
+from library import api_calls
 
 FUNCS = {}
 
@@ -65,7 +65,7 @@ def print_board(board, my_board):
         num_label += 1
 
 
-def makeColLabels(my_board):
+def make_col_labels(my_board):
     """
         Makes a string used to label the columns
         on the board with numbers.
@@ -92,7 +92,7 @@ def print_boards(my_board, computer_board):
         my_board.hit_count,
         'of', my_board.ships
     )
-    col_labels = makeColLabels(my_board)
+    col_labels = make_col_labels(my_board)
     print(col_labels)
     print_board(my_board.board_matrix, my_board)
 
@@ -306,7 +306,7 @@ def print_score_board(parameters='scores'):
         Returns boolean indicating presence of defined string.
     """
     if parameters == 'scores' or parameters == 'Scores':
-        data = get_data()[0]
+        data = api_calls.get_data()[0]
         scores = [{'name': row[0], 'score': row[4]} for row in data]
         scores.sort(key=sort_scores, reverse=True)
         print('-----TOP 5 BEST WINNING STREAKS-----')

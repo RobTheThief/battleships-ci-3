@@ -1,7 +1,6 @@
 import copy
 
-from helpers import *
-from api_calls import *
+from library import helpers, api_calls
 
 
 class create_game_board:
@@ -38,8 +37,8 @@ class create_game_board:
         for _ in range(0, self.ships):
             done = False
             while not done:
-                random_row = get_random(self.size)
-                random_col = get_random(self.size)
+                random_row = helpers.get_random(self.size)
+                random_col = helpers.get_random(self.size)
                 if self.board_matrix[random_row][random_col] != '<>':
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
@@ -69,7 +68,7 @@ class create_game_board:
             and saves the data and the row number to
             the board object.
         """
-        data = get_data()
+        data = api_calls.get_data()
         all_values = data[0]
         count = -1
         found = False
@@ -90,20 +89,20 @@ class create_game_board:
             Creates new player in the sheet and saves the
             current_history to the board object
         """
-        data = get_data()
+        data = api_calls.get_data()
         all_values = data[0]
         scores = data[1]
         pword = input('New player! Enter a password:\n')
         length = len(all_values)
 
-        update_cell(f'A{length + 1}', self.name, scores)  # Name
-        update_cell(f'B{length + 1}', 0, scores)  # Wins
-        update_cell(f'C{length + 1}', 0, scores)  # Losses
-        update_cell(f'D{length + 1}', 0, scores)  # Current Streak
-        update_cell(f'E{length + 1}', 0, scores)  # Best Streak
-        update_cell(f'F{length + 1}', pword, scores)  # Password
+        api_calls.update_cell(f'A{length + 1}', self.name, scores)  # Name
+        api_calls.update_cell(f'B{length + 1}', 0, scores)  # Wins
+        api_calls.update_cell(f'C{length + 1}', 0, scores)  # Losses
+        api_calls.update_cell(f'D{length + 1}', 0, scores)  # Current Streak
+        api_calls.update_cell(f'E{length + 1}', 0, scores)  # Best Streak
+        api_calls.update_cell(f'F{length + 1}', pword, scores)  # Password
 
-        data = get_data()
+        data = api_calls.get_data()
         all_values = data[0]
         self.current_history = all_values[length - 1]
 
@@ -134,7 +133,7 @@ class create_game_board:
                     print(scores_line_2)
                     password_wrong = False
                     break
-                loading_delay('Password Incorrect. Resetting game..', 2)
+                helpers.loading_delay('Password Incorrect. Resetting game..', 2)
                 run_game()
 
     def update_player_scores(self, win, loss):
@@ -143,27 +142,27 @@ class create_game_board:
             best streak.
         """
         self.find_player_row()
-        scores = get_data()[1]
+        scores = api_calls.get_data()[1]
 
         win_update = int(self.current_history[1]) + int(win)
-        update_cell(f'B{self.data_row + 1}', win_update, scores)  # Wins
+        api_calls.update_cell(f'B{self.data_row + 1}', win_update, scores)  # Wins
 
         loss_update = int(self.current_history[2]) + int(loss)
-        update_cell(f'C{self.data_row + 1}', loss_update, scores)  # Lossses
+        api_calls.update_cell(f'C{self.data_row + 1}', loss_update, scores)  # Lossses
 
         if loss == 1:
-            update_cell(
+            api_calls.update_cell(
                 f'D{self.data_row + 1}', 0, scores
             )  # Current Streak reset to 0
         elif win == 1:
             streak_update = int(self.current_history[3]) + int(1)
-            update_cell(
+            api_calls.update_cell(
                 f'D{self.data_row + 1}', streak_update, scores
             )  # C urrent Streak increase
-        all_values = get_data()[0]
+        all_values = api_calls.get_data()[0]
         if int(all_values[self.data_row][3]) > int(self.current_history[4]):
             best_streak = int(all_values[self.data_row][3])
-            update_cell(
+            api_calls.update_cell(
                 f'E{self.data_row + 1}', best_streak, scores
             )  # Best Streak update
 
@@ -172,16 +171,16 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
-    print_score_board()
-    print_help()
+    helpers.print_score_board()
+    helpers.print_help()
 
-    game_boards = setup_game(create_game_board)
+    game_boards = helpers.setup_game(create_game_board) ## CHANGE NAME HERE
     my_board = game_boards[0]
     computer_board = game_boards[1]
 
     current_turn = my_board.whos_turn
 
-    while (
+    while ( ### ADD TO BUSINESS LOGIC
             my_board.hit_count < my_board.ships and
             computer_board.hit_count < computer_board.ships
     ):
@@ -193,13 +192,13 @@ def run_game():
                 while not valid_input:
                     coords = input(
                         '------ ENTER COORDINATES. eg. 2 3 --------\n')
-                    valid_input = validate_input(coords, True)
-                if is_off_board(valid_input, my_board):
+                    valid_input = helpers.validate_input(coords, True)
+                if helpers.is_off_board(valid_input, my_board):
                     break
                 targeting = computer_board.recieve_shot(
                     valid_input[0], valid_input[1])
             if current_turn == computer_board.name:
-                valid_input = generate_coords(computer_board.size)
+                valid_input = helpers.generate_coords(computer_board.size)
                 targeting = my_board.recieve_shot(
                     valid_input[0], valid_input[1])
             if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
@@ -208,14 +207,14 @@ def run_game():
                 unique_coords = False
             if targeting == 'Hit' or targeting == 'Miss':
                 targeting_message = f'{current_turn} Targeting: {targeting}'
-                loading_delay(targeting_message, 2)
-                current_turn = track_rounds(
+                helpers.loading_delay(targeting_message, 2)
+                current_turn = helpers.track_rounds(
                     current_turn, my_board, computer_board)
                 unique_coords = True
-        print_boards(my_board, computer_board)
-    end_game(my_board, computer_board)
+        helpers.print_boards(my_board, computer_board)
+    helpers.end_game(my_board, computer_board)
     run_game()
 
 
-get_function(run_game, 'run_game')
+helpers.get_function(run_game, 'run_game')
 run_game()
