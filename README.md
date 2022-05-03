@@ -99,7 +99,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
 #### Promgams
 
 1. [Git](https://git-scm.com/)
-   - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
+   - Git was used for version control by utilizing the Gitpod terminal to commit
+   to Git and Push to GitHub.
 1. [GitHub:](https://github.com/)
    - GitHub is used to store the projects code after being pushed from Git.
 1. [Heroku:](https://www.heroku.com/)
@@ -114,17 +115,23 @@ Google Sheets API to access a Google sheet and keep scores for players.
 1. [gspread:](https://docs.gspread.org/)
     - This library is used to access and update the the data in the spreadsheet. 
 1. [google-auth:](https://google-auth.readthedocs.io/en/master/)
-    - google-auth is the Google authentication library for Python. This library provides the ability to authenticate to Google APIs.
+    - google-auth is the Google authentication library for Python. This library
+    provides the ability to authenticate to Google APIs.
 1. [copy:](https://balsamiq.com/)
-    - This library is used to make a deep copy of the the board matrix and not just a reference to the location in memeory.
+    - This library is used to make a deep copy of the the board matrix and not
+    just a reference to the location in memeory.
 1. [math:](https://balsamiq.com/)
-    - The math library is used to implement `math.ceil()` to round up a number in determining the game round number. 
+    - The math library is used to implement `math.ceil()` to round up a number
+    in determining the game round number. 
 1. [time:](https://balsamiq.com/)
-    - time was used to create a delay between prints so that the user could see the information as it was printed with `time.sleep(delay)`
+    - time was used to create a delay between prints so that the user could see
+    the information as it was printed with `time.sleep(delay)`
 1. [os:](https://balsamiq.com/)
-    - Here os was used so that it was possible to run the `clear` terminal command from the program using `os.system()`
+    - Here os was used so that it was possible to run the `clear` terminal
+    command from the program using `os.system()`
 1. [numpy:](https://balsamiq.com/)
-    - numpy was used to generate the random numbers needed for the random coordinates and the random placement of the ships.
+    - numpy was used to generate the random numbers needed for the random
+    coordinates and the random placement of the ships.
 
 ## TESTING
 
@@ -134,34 +141,41 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
   1. As a First Time Visitor, I want to understand clearly the game mechanics.
      1. When the game loads there are instructions on how to set up the game. 
-     2. When the game loads there are instructions on how to use game commands and in particular there are 'help' and 'about' commands that give an even more detailed discription of how to play the game. 
+     2. When the game loads there are instructions on how to use game commands and in
+     particular there are 'help' and 'about' commands that give an even more detailed
+     discription of how to play the game. 
      3. A legend is printed to describe the different symbols on the board.
   2. As a First Time Visitor, I want to understand the game controls.
      1. The 'about' command will describe the how the coordinates work.
-     2. The introduction information and the 'help' command describe how to enter coordinates.
+     2. The introduction information and the 'help' command describe how to enter
+     coordinates.
      3. Upon being prompted for input an example is given.
   3. As a First Time Visitor, I want to be able keep track of score.
      1. At the beginning of the game the top 5 best winning streaks are printed.
      2. Every time a shot is fired 'Hit' or 'Miss' is printed. 
      3. Each board has the number of hits taken displayed in each round.
      4. At the end of the game the results are recorded to the database.
-     5. The user can type 'scores' at any time to see the top 5 best winning streaks from past users.
+     5. The user can type 'scores' at any time to see the top 5 best winning streaks
+     from past users.
 
 - #### Returning Visitor Goals
 
   1. As a Returning Visitor, see my previous scores and play again.
      1. At the beginning of the game the top 5 best winning streaks are printed.
      2. When the user logs in again their entire score history is printed.
-     3. The user can type 'scores' at any time to see the top 5 best winning streaks from past users.
+     3. The user can type 'scores' at any time to see the top 5 best winning streaks
+     from past users.
      4. At the end of the game the results are recorded to the database.
 
 ### Known Bugs
 
 #### Solved Bugs
 
-- Having split the code up into modules the run_game function needed to me accessible in helpers
+- Having split the code up into modules the run_game function needed to me accessible
+in helpers
   but importing run into helpers caused a circular import error.
-    - I was able to export the function by creating a function that takes in a function as a parameter
+    - I was able to export the function by creating a function that takes in a function
+    as a parameter
     and saves it to a dictionary in the global scope of the helpers module.
 
 #### Remaining Bugs
@@ -171,19 +185,24 @@ Google Sheets API to access a Google sheet and keep scores for players.
 ### Further Testing
 
 - Tested locally and on the Code Institute Heroku terminal.
-- Test giving the program invalid input; wrong characters, off board values, too many ships for board size, board size too big.
-- Friends and family members were asked to review the site and documentation to point out any bugs and/or user experience issues.
+- Test giving the program invalid input; wrong characters, off board values, too many
+ships for board size, board size too big.
+- Friends and family members were asked to review the site and documentation to point
+out any bugs and/or user experience issues.
 
 ### Validator Testing
 
   - PEP8
 
-    Validations errors that were found consisted mainly of 'Trailing whitespace' errors and 'line too long'
+    Validations errors that were found consisted mainly of 'Trailing whitespace' errors
+    and 'line too long'
     errors and one "comparison to True should be 'if cond is True:' or 'if cond:'".
 
-    White spaces were simply deleted. Line too long errors were solved mainly by breaking up f stings and
+    White spaces were simply deleted. Line too long errors were solved mainly by
+    breaking up f stings and
     using parenthesis to enclose them, as well as editing docstrings.
-    The comparison error was solved by simply deleting '== True' as this is extra or redundant.
+    The comparison error was solved by simply deleting '== True' as this is extra
+    or redundant.
 
     All three files passed the PEP8 validator tests:
     
@@ -199,7 +218,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ## Deployment
 
-- Local deployment was achieved with with Python from the console. The game was developed on a Ubuntu OS and so was already installed. Steps are as follows:
+- Local deployment was achieved with with Python from the console. The game was
+developed on a Ubuntu OS and so was already installed. Steps are as follows:
   - Run `python3 run.py` in the terminal with root directory of the project.
 
 - Heroku Deployment:
@@ -207,7 +227,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
     - Set the build packs to `Python` and `NodeJS` in that order.
     - Set Config Vars key value pairs for:
       1. `PORT`: `8000`
-      1. `CREDS`: `{CREDS Object}` where {CREDS Object} is from the credentials file dowoloaded from Google Cloud Platform.
+      1. `CREDS`: `{CREDS Object}` where {CREDS Object} is from the credentials file
+      dowoloaded from Google Cloud Platform.
     - Enter `heroku login -i` command in the terminal with root directory of the project.
     - Enter Heroku username and password.
     - Enter `git push --set-upstream https://git.heroku.com/battleships-ci-3.git main` to deploy.
