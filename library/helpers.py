@@ -1,6 +1,7 @@
 import math
 import time
 import os
+import pyfiglet
 from numpy import random
 
 from library import api_calls
@@ -282,6 +283,8 @@ def print_game_start_help():
         Prints less verbose help information at the
         beginning of the game.
     """
+    ascii_banner = pyfiglet.figlet_format("<*>Battleships<*>")
+    print(ascii_banner)
     print(  
             '---------- GAME COMMANDS -----------',
             '\nFor help at any time type "help". To',
