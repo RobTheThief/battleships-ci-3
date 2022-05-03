@@ -351,8 +351,10 @@ def setup_game(create_game_board):
     """
     valid_input = False
     print(
-            'First enter board size first and then',
-            'the\nnumber of ships, seperated by a space. eg. 2 3'
+            '\nIf you enter 4 for size it will be a 4 X 4 board.',
+            '\nThe next digit is the number of ships on the board.',
+            '\nFirst enter board size and then the number of ships,',
+            '\nseperated by a space. Example: 4 5',
     )
     while not valid_input:
         board_info = input('Board size cannot be bigger than 9:\n')

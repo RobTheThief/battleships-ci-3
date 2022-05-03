@@ -87,6 +87,14 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
   ![Random ship placement](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/game_commands.png)
 
+### FUTURE FEATURES
+
+- **PvP**
+
+  - A possible future feature might be to allow player to log into a  
+  lobby and match up to play against each other.
+
+
 ## Technologies Used
 
 ### Languages Used
