@@ -171,8 +171,7 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
-    helpers.print_score_board()
-    helpers.print_help()
+    helpers.print_game_start_help()
 
     game_boards = helpers.setup_game(GameBoard) ## CHANGE NAME HERE
     my_board = game_boards[0]

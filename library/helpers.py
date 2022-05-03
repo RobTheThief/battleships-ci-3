@@ -271,11 +271,27 @@ def print_help(parameter='help'):
                 '\nClear the console type "clear". To',
                 '\nreset the game type "reset" To',
                 '\nlearn more about the game mechanics',
-                '\ntype "about"',
+                '\ntype "about."',
         )
         print('------------------------------------\n')
         return True
     return False
+
+def print_game_start_help():
+    """
+        Prints less verbose help information at the
+        beginning of the game.
+    """
+    print(  
+            '---------- GAME COMMANDS -----------',
+            '\nFor help at any time type "help". To',
+            '\nsee the score board type "scores".',
+            '\nClear the console type "clear". To',
+            '\nreset the game type "reset" To',
+            '\nlearn more about the game mechanics',
+            '\ntype "about."',
+    )
+    print('------------------------------------\n')
 
 
 def clear_console(parameters='clear'):
