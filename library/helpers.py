@@ -83,6 +83,7 @@ def print_boards(my_board, computer_board):
         Prints both boards with row and columns labeled
         and the hit count over each board
     '''
+    clear_console()
     print(
         f"-------- ROUND: {my_board.round_count}.",
         f"{my_board.whos_turn}'s Turn --------"
@@ -100,7 +101,7 @@ def print_boards(my_board, computer_board):
         f'COMPUTER BOARD, Hits Taken: '
         f'{computer_board.hit_count} of {computer_board.ships}'
     )
-    loading_delay(board_label, 1)
+    print(board_label)
     print(col_labels)
     print_board(computer_board.board_matrix_obscured, my_board)
 
