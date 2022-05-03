@@ -140,7 +140,10 @@ Google Sheets API to access a Google sheet and keep scores for players.
 1. [numpy:](https://balsamiq.com/)
     - numpy was used to generate the random numbers needed for the random  
     coordinates and the random placement of the ships.
+1. [pyfiglet:](https://github.com/pwaller/pyfiglet)
+    - pyfiglet was used to generate the game logo graphic.
 
+https://github.com/pwaller/pyfiglet
 ## TESTING
 
 ### Testing User Stories from User Experience (UX) Section
