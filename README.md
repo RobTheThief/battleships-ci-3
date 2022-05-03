@@ -91,8 +91,8 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Languages Used
 
-- [PYTHON](https://en.wikipedia.org/wiki/Python_(programming_language))
-- [GOOGLE SHEETS](https://en.wikipedia.org/wiki/Google_Sheets)
+- [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+- [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
 
 ### Frameworks, Libraries & Programs Used
 
@@ -106,6 +106,22 @@ Google Sheets API to access a Google sheet and keep scores for players.
    - Was used to make the logic flow chart in this readme.
 1. [Balsamiq:](https://balsamiq.com/)
    - Was used to create the wireframe for the game.
+
+1. [gspread:](https://docs.gspread.org/)
+    - This library is used to access and update the the data in the spreadsheet. 
+1. [google-auth:](https://google-auth.readthedocs.io/en/master/)
+    - google-auth is the Google authentication library for Python. This library provides the ability to authenticate to Google APIs.
+1. [copy:](https://balsamiq.com/)
+    - This library is used to make a deep copy of the the board matrix and not just a reference to the location in memeory.
+1. [math:](https://balsamiq.com/)
+    - The math library is used to implement `math.ceil()` to round up a number in determining the game round number. 
+1. [time:](https://balsamiq.com/)
+    - time was used to create a delay between prints so that the user could see the information as it was printed with `time.sleep(delay)`
+1. [os:](https://balsamiq.com/)
+    - Here os was used so that it was possible to run the `clear` terminal command from the program using `os.system()`
+1. [numpy:](https://balsamiq.com/)
+    - numpy was used to generate the random numbers needed for the random coordinates and the random placement of the ships.
+
 
 ## TESTING
 
