@@ -3,7 +3,7 @@ import copy
 from library import helpers, api_calls
 
 
-class create_game_board:
+class GameBoard:
     def __init__(self, size, ships, name='Computer'):
         self.size = size
         self.ships = ships
@@ -174,7 +174,7 @@ def run_game():
     helpers.print_score_board()
     helpers.print_help()
 
-    game_boards = helpers.setup_game(create_game_board) ## CHANGE NAME HERE
+    game_boards = helpers.setup_game(GameBoard) ## CHANGE NAME HERE
     my_board = game_boards[0]
     computer_board = game_boards[1]
 
