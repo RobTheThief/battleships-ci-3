@@ -94,18 +94,22 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 - [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
 
-### Frameworks, Libraries & Programs Used
+### Libraries & Programs Used
+
+#### Promgams
 
 1. [Git](https://git-scm.com/)
    - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 1. [GitHub:](https://github.com/)
    - GitHub is used to store the projects code after being pushed from Git.
 1. [Heroku:](https://www.heroku.com/)
-   - Was used to host the game.
+   - Was used to host and deploy the game.
 1. [Lucid:](https://www.lucidchart.com/)
    - Was used to make the logic flow chart in this readme.
 1. [Balsamiq:](https://balsamiq.com/)
    - Was used to create the wireframe for the game.
+
+#### Python Librarys
 
 1. [gspread:](https://docs.gspread.org/)
     - This library is used to access and update the the data in the spreadsheet. 
@@ -121,7 +125,6 @@ Google Sheets API to access a Google sheet and keep scores for players.
     - Here os was used so that it was possible to run the `clear` terminal command from the program using `os.system()`
 1. [numpy:](https://balsamiq.com/)
     - numpy was used to generate the random numbers needed for the random coordinates and the random placement of the ships.
-
 
 ## TESTING
 
