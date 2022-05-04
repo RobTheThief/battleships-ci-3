@@ -17,7 +17,7 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
-
+    clear_console()
     print_banner("<*>Battleships<*>")
     print_game_start_help()
 
@@ -42,7 +42,7 @@ def play_turn(my_board, computer_board):
     if current_turn == my_board.name:
         valid_input = get_valid_input(my_board)
     if not valid_input:
-        return True
+        return
     if current_turn == my_board.name:
         targeting = computer_board.recieve_shot(
             valid_input[0], valid_input[1])
@@ -51,15 +51,24 @@ def play_turn(my_board, computer_board):
         targeting = my_board.recieve_shot(
             valid_input[0], valid_input[1])
     if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
-        pause_message(targeting, 2)
-        return True
+        repeat_message(targeting, current_turn)
+        return
     if targeting == 'Hit' or targeting == 'Miss':
         targeting_message = f'{current_turn} Targeting: {targeting}'
         pause_message(targeting_message, 2)
         current_turn = track_rounds(
             current_turn, my_board, computer_board)
-        return True
+        return
 
+
+def repeat_message(targeting, current_turn):
+    """
+        Prints a message with a delay reporting that
+        the coordinates were already fired upon if
+        the turn is not the Computers.
+    """
+    if current_turn != 'Computer':
+        pause_message(targeting, 2)
 
 def print_banner(text):
     """
