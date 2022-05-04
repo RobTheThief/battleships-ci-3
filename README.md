@@ -204,9 +204,9 @@ coordinates being fired upon.
 ### Further Testing
 
 - Tested locally and on the Code Institute Heroku terminal.
-- Test giving the program invalid input; wrong characters, off board values, too many  
+- Test giving the program invalid input; strings, off board values, too many  
 ships for board size, board size too big, negative and zero values.
-- Friends and family members were asked to review the site and documentation to point  
+- Friends and family members were asked to play the game to point  
 out any bugs and/or user experience issues.
 
 ### Validator Testing
