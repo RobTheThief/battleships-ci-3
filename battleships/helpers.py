@@ -29,12 +29,13 @@ def run_game():
         is_unique_coords = False
         while not is_unique_coords:
             targeting = ''
+            valid_input = True
             if current_turn == my_board.name:
-                valid_input = get_valid_input()
-            if is_off_board(valid_input, my_board):
-                loading_delay('', 2)
+                valid_input = get_valid_input(my_board)
+            if not valid_input:
                 break
-            targeting = computer_board.recieve_shot(
+            if current_turn == my_board.name:
+                targeting = computer_board.recieve_shot(
                     valid_input[0], valid_input[1])
             if current_turn == computer_board.name:
                 valid_input = generate_coords(computer_board.size)
@@ -54,13 +55,24 @@ def run_game():
     run_game()
 
 
-def get_valid_input():
-    valid_input = False
-    while not valid_input:
-        coords = input(
-            '------ ENTER COORDINATES. eg. 2 3 --------\n')
-        valid_input = validate_input(coords, True)
-    return valid_input
+def get_valid_input(my_board):
+    """
+        Prompts use for input and checks if
+        it is in the correct format and data
+        type and also if the coordinates are
+        useable.
+        Returns False if it does not meet the
+        requirements.
+    """
+    bad_coords = False
+    coords = input(
+                '------ ENTER COORDINATES. eg. 2 3 --------\n')
+    valid_input = validate_input(coords, True)
+    if valid_input:
+        bad_coords = is_off_board(valid_input, my_board)
+    if not bad_coords:
+        return valid_input
+    return False
 
 
 def game_over(my_board, computer_board):
@@ -242,16 +254,18 @@ def is_off_board(coords, board):
         Returns True if it is with an error message.
     '''
     if coords[0] > board.size:
-        print(
-            '**X COORDINATE IS OFF BOARD! VALUE MUST BE',
-            board.size, 'OR LESS'
+        message = (
+            f'**X COORDINATE IS OFF BOARD! VALUE MUST BE '
+            f'{board.size} OR LESS'
         )
+        loading_delay(message, 2)
         return True
     if coords[1] > board.size:
-        print(
-            '**Y COORDINATE IS OFF BOARD! VALUE MUST BE',
-            board.size, 'OR LESS'
+        message = (
+            f'**Y COORDINATE IS OFF BOARD! VALUE MUST BE '
+            f'{board.size} OR LESS'
         )
+        loading_delay(message, 2)
         return True
     return False
 
