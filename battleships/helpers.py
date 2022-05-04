@@ -23,36 +23,40 @@ def run_game():
     my_board = game_boards[0]
     computer_board = game_boards[1]
 
-    current_turn = my_board.whos_turn
-
     while not game_over(my_board, computer_board):
-        is_unique_coords = False
-        while not is_unique_coords:
-            targeting = ''
-            valid_input = True
-            if current_turn == my_board.name:
-                valid_input = get_valid_input(my_board)
-            if not valid_input:
-                break
-            if current_turn == my_board.name:
-                targeting = computer_board.recieve_shot(
-                    valid_input[0], valid_input[1])
-            if current_turn == computer_board.name:
-                valid_input = generate_coords(computer_board.size)
-                targeting = my_board.recieve_shot(
-                    valid_input[0], valid_input[1])
-            if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
-                loading_delay(targeting, 2)
-                break
-            if targeting == 'Hit' or targeting == 'Miss':
-                targeting_message = f'{current_turn} Targeting: {targeting}'
-                loading_delay(targeting_message, 2)
-                current_turn = track_rounds(
-                    current_turn, my_board, computer_board)
-                is_unique_coords = True
+        play_turn(my_board, computer_board)
         print_boards(my_board, computer_board)
     end_game(my_board, computer_board)
     run_game()
+
+
+def play_turn(my_board, computer_board):
+    """
+        Handles the flow of each turn of the game.
+    """
+    targeting = ''
+    valid_input = True
+    current_turn = my_board.whos_turn
+    if current_turn == my_board.name:
+        valid_input = get_valid_input(my_board)
+    if not valid_input:
+        return True
+    if current_turn == my_board.name:
+        targeting = computer_board.recieve_shot(
+            valid_input[0], valid_input[1])
+    if current_turn == computer_board.name:
+        valid_input = generate_coords(computer_board.size)
+        targeting = my_board.recieve_shot(
+            valid_input[0], valid_input[1])
+    if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
+        pause_message(targeting, 2)
+        return True
+    if targeting == 'Hit' or targeting == 'Miss':
+        targeting_message = f'{current_turn} Targeting: {targeting}'
+        pause_message(targeting_message, 2)
+        current_turn = track_rounds(
+            current_turn, my_board, computer_board)
+        return True
 
 
 def get_valid_input(my_board):
@@ -175,7 +179,7 @@ def print_boards(my_board, computer_board):
     print_board(computer_board.board_matrix_obscured, my_board)
 
 
-def loading_delay(message, delay):
+def pause_message(message, delay):
     """
         Prints a message and creates a delay for a given
         value in seconds
@@ -225,25 +229,25 @@ def validate_input(parameters, is_board_built=False):
     try:
         num_1 = int(parameters[0])
     except ValueError:
-        loading_delay('**FIRST PARAMETER IS NOT A NUMBER', 2)
+        pause_message('**FIRST PARAMETER IS NOT A NUMBER', 2)
         return False
     except IndexError:
-        loading_delay('**NOTHING WAS ENTERED. TRY AGAIN', 2)
+        pause_message('**NOTHING WAS ENTERED. TRY AGAIN', 2)
         return False
     try:
         num_2 = int(parameters[1])
         if num_1 <= 0 or num_2 <= 0:
-            loading_delay('**VALUES CANNOT BE ZERO OR LESS', 2)
+            pause_message('**VALUES CANNOT BE ZERO OR LESS', 2)
             return
         if is_board_built:
             return [num_1, num_2]
         if validate_ship_quantity([num_1, num_2]) and check_board_size(num_1):
             return [num_1, num_2]
     except ValueError:
-        loading_delay('**SECOND PARAMETER IS NOT A NUMBER', 2)
+        pause_message('**SECOND PARAMETER IS NOT A NUMBER', 2)
         return False
     except IndexError:
-        loading_delay('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN', 2)
+        pause_message('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN', 2)
         return False
     return False
 
@@ -258,14 +262,14 @@ def is_off_board(coords, board):
             f'**X COORDINATE IS OFF BOARD! VALUE MUST BE '
             f'{board.size} OR LESS'
         )
-        loading_delay(message, 2)
+        pause_message(message, 2)
         return True
     if coords[1] > board.size:
         message = (
             f'**Y COORDINATE IS OFF BOARD! VALUE MUST BE '
             f'{board.size} OR LESS'
         )
-        loading_delay(message, 2)
+        pause_message(message, 2)
         return True
     return False
 
@@ -313,6 +317,18 @@ def about(parameter='about'):
     return False
 
 
+def confirm_input(task):
+    """
+        Checks with the user that they want to go ahead
+        with the defined task.
+        Returns boolean.
+    """
+    answer = input(f'Are you sure you want {task} y / n\n')
+    if answer == 'y' or answer == 'Y':
+        return True
+    return False
+
+
 def reset_game(parameter='reset'):
     """
         Resets the game if parameter passed is equal
@@ -321,10 +337,11 @@ def reset_game(parameter='reset'):
         Returns False if there is no presence of
         defined string.
     """
+    confirmed = False
     if parameter == 'reset' or parameter == 'Reset':
-        answer = input('Are you sure you want to reset this game? y / n\n')
-        if answer == 'y':
-            run_game()
+        confirmed = confirm_input('to reset the game?')
+    if confirmed:
+        run_game()
     return False
 
 

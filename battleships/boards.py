@@ -146,7 +146,7 @@ class GameBoard:
                     print(scores_line_2)
                     password_wrong = False
                     break
-                helpers.loading_delay(
+                helpers.pause_message(
                     'Password Incorrect. Resetting game..', 2)
                 helpers.run_game()
 
