@@ -182,13 +182,22 @@ Google Sheets API to access a Google sheet and keep scores for players.
 #### Solved Bugs
 
 - Having split the code up into modules the run_game function needed to me accessible  
-in helpers but importing run into helpers caused a circular import error.
-    - I was able to export the function by creating a function that takes in a function  
-    as a parameter and saves it to a dictionary in the global scope of the helpers module.
+in helpers but importing run.py into helpers caused a circular import error.
+  - I decided to create a package with all the modules in it and only use  
+    run.py to import and run run_game(). This gave the other functions access  
+    to the run_game function.
+
+- Entering zero or minus values gave unusual bugs like upon entering the borad  
+size and ship number, after login the game would immediatly declare that you  
+lost the game and start a new one.
+- Doing so during the game when entering coordinates would result in random  
+coordinates being fired upon.
+  - For both of these bugs the solution was to add a check into the validate_input  
+  function for zero or minus integers.
 
 #### Remaining Bugs
 
-- No remaining bugs found
+- No remaining bugs found.
 
 ### Further Testing
 

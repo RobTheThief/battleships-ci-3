@@ -202,6 +202,9 @@ def validate_input(parameters, is_board_built=False):
         return False
     try:
         y = int(parameters[1])
+        if x <= 0 or y <= 0:
+            print('**VALUES CANNOT BE ZERO OR LESS')
+            return
         if is_board_built:
             return [x, y]
         if validate_ship_to_board_size_ratio([x, y]) and check_board_size(x):
