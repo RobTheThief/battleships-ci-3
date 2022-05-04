@@ -5,6 +5,7 @@
 import copy
 
 from battleships import helpers, api_calls
+from getpass import getpass
 
 
 class GameBoard:
@@ -105,7 +106,7 @@ class GameBoard:
         data = api_calls.get_sheet_data()
         all_values = data[0]
         scores = data[1]
-        pword = input('New player! Enter a password:\n')
+        pword = getpass('New player! Enter a password:\n')
         length = len(all_values)
 
         api_calls.update_cell(f'A{length + 1}', self.name, scores)  # Name
@@ -128,7 +129,7 @@ class GameBoard:
         if not self.find_player_row():
             return self.add_new_player()
 
-        pword = input('Enter your password:\n')
+        pword = getpass('Enter your password:\n')
         if pword == self.current_history[5]:
             scores_line_1 = (
                 f'\nWins: {self.current_history[1]} '
