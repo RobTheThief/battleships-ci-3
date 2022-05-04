@@ -6,7 +6,8 @@
     The rest of the game functions are found in helpers including
     run_game; the main game flow function.
     Sub packages include:
-    math, time, os, pyfiglet, numpy, gspread, google-auth, copy
+    math, time, os, pyfiglet, numpy, gspread, google-auth, copy,
+    getpass
 """
 
 from . import helpers

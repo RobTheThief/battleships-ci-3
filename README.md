@@ -125,23 +125,25 @@ Google Sheets API to access a Google sheet and keep scores for players.
 1. [google-auth:](https://google-auth.readthedocs.io/en/master/)
     - google-auth is the Google authentication library for Python. This library  
     provides the ability to authenticate to Google APIs.
-1. [copy:](https://balsamiq.com/)
+1. [copy:](https://docs.python.org/3/library/copy.html)
     - This library is used to make a deep copy of the the board matrix and not  
     just a reference to the location in memeory.
-1. [math:](https://balsamiq.com/)
+1. [math:](https://docs.python.org/3/library/math.html)
     - The math library is used to implement `math.ceil()` to round up a number  
     in determining the game round number. 
-1. [time:](https://balsamiq.com/)
+1. [time:](https://docs.python.org/3/library/time.html)
     - time was used to create a delay between prints so that the user could see  
     the information as it was printed with `time.sleep(delay)`
-1. [os:](https://balsamiq.com/)
+1. [os:](https://docs.python.org/3/library/os.html)
     - Here os was used so that it was possible to run the `clear` terminal  
     command from the program using `os.system()`
-1. [numpy:](https://balsamiq.com/)
+1. [numpy:](https://numpy.org/)
     - numpy was used to generate the random numbers needed for the random  
     coordinates and the random placement of the ships.
 1. [pyfiglet:](https://github.com/pwaller/pyfiglet)
-    - pyfiglet was used to generate the game logo graphic.
+    - pyfiglet was used to generate the game logo graphic. 
+1. [getpass:](https://docs.python.org/3/library/getpass.html)
+    - getpass was used to conceal the password input by the user.
 
 ## TESTING
 
