@@ -70,6 +70,7 @@ def repeat_message(targeting, current_turn):
     if current_turn != 'Computer':
         pause_message(targeting, 2)
 
+
 def print_banner(text):
     """
         Prints banner with stylised text.

@@ -4,8 +4,8 @@
 """
 import copy
 
-from battleships import helpers, api_calls
 from getpass import getpass
+from battleships import helpers, api_calls
 
 
 class GameBoard:

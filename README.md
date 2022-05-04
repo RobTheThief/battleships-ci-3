@@ -205,7 +205,7 @@ coordinates being fired upon.
 
 - Tested locally and on the Code Institute Heroku terminal.
 - Test giving the program invalid input; wrong characters, off board values, too many  
-ships for board size, board size too big.
+ships for board size, board size too big, negative and zero values.
 - Friends and family members were asked to review the site and documentation to point  
 out any bugs and/or user experience issues.
 
