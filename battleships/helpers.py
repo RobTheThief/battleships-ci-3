@@ -17,6 +17,8 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
+
+    print_banner("<*>Battleships<*>")
     print_game_start_help()
 
     game_boards = setup_boards(boards.GameBoard)
@@ -57,6 +59,14 @@ def play_turn(my_board, computer_board):
         current_turn = track_rounds(
             current_turn, my_board, computer_board)
         return True
+
+
+def print_banner(text):
+    """
+        Prints banner with stylised text.
+    """
+    ascii_banner = pyfiglet.figlet_format(text)
+    print(ascii_banner)
 
 
 def get_valid_input(my_board):
@@ -380,8 +390,7 @@ def print_game_start_help():
         Prints less verbose help information at the
         beginning of the game.
     """
-    ascii_banner = pyfiglet.figlet_format("<*>Battleships<*>")
-    print(ascii_banner)
+
     print(
         '---------- GAME COMMANDS -----------',
         '\nFor help at any time type "help". To',
@@ -487,8 +496,8 @@ def end_game(my_board, computer_board):
         the database.
     """
     if my_board.hit_count < computer_board.hit_count:
-        print('********** (: HURRAY!!! YOU WIN :) **********')
+        print_banner('You Win! : )')
         my_board.update_player_scores(1, 0)
     else:
-        print('********** ): YOU LOSE :( **********')
+        print_banner('You Lose! : (')
         my_board.update_player_scores(0, 1)
