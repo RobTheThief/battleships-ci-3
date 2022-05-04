@@ -124,31 +124,29 @@ class GameBoard:
             Checks if player has an account and logs them in.
             If no player found then redericted to create new player.
         """
-        found = self.find_player_row()
-        if not found:
-            self.add_new_player()
-        elif found:
-            password_wrong = True
-            while password_wrong:
-                pword = input('Enter your password:\n')
-                if pword == self.current_history[5]:
-                    scores_line_1 = (
-                        f'\nWins: {self.current_history[1]} '
-                        f'Losses: {self.current_history[2]}'
-                    )
-                    scores_line_2 = (
-                        f'Current win streak: '
-                        f'{self.current_history[3]} '
-                        f'Best win streak: '
-                        f'{self.current_history[4]}'
-                    )
-                    print(scores_line_1)
-                    print(scores_line_2)
-                    password_wrong = False
-                    break
-                helpers.pause_message(
-                    'Password Incorrect. Resetting game..', 2)
-                helpers.run_game()
+
+        if not self.find_player_row():
+            return self.add_new_player()
+
+        pword = input('Enter your password:\n')
+        if pword == self.current_history[5]:
+            scores_line_1 = (
+                f'\nWins: {self.current_history[1]} '
+                f'Losses: {self.current_history[2]}'
+            )
+            scores_line_2 = (
+                f'Current win streak: '
+                f'{self.current_history[3]} '
+                f'Best win streak: '
+                f'{self.current_history[4]}'
+            )
+            print(scores_line_1)
+            print(scores_line_2)
+            return
+
+        helpers.pause_message(
+            'Password Incorrect. Resetting game..', 2)
+        helpers.run_game()
 
     def update_player_scores(self, win, loss):
         """
