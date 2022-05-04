@@ -26,7 +26,7 @@ def update_cell(cell, value, scores):
     scores.update(cell, value)
 
 
-def get_data():
+def get_sheet_data():
     """
         Gets the spreadsheet and the cell data from the Google sheet
         and returns a list with the cell values and the scores sheet

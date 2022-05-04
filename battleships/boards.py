@@ -9,7 +9,7 @@ from battleships import helpers, api_calls
 
 class GameBoard:
     """
-        Boards class creats a biards object for each player.
+        Boards class creates a biards object for each player.
         It contains all the information on the player and the
         board needed to play a game. It also has methods to
         create the board, add ships, take fire from oppenents,
@@ -81,7 +81,7 @@ class GameBoard:
             and saves the data and the row number to
             the board object.
         """
-        data = api_calls.get_data()
+        data = api_calls.get_sheet_data()
         all_values = data[0]
         count = -1
         found = False
@@ -102,7 +102,7 @@ class GameBoard:
             Creates new player in the sheet and saves the
             current_history to the board object
         """
-        data = api_calls.get_data()
+        data = api_calls.get_sheet_data()
         all_values = data[0]
         scores = data[1]
         pword = input('New player! Enter a password:\n')
@@ -115,7 +115,7 @@ class GameBoard:
         api_calls.update_cell(f'E{length + 1}', 0, scores)  # Best Streak
         api_calls.update_cell(f'F{length + 1}', pword, scores)  # Password
 
-        data = api_calls.get_data()
+        data = api_calls.get_sheet_data()
         all_values = data[0]
         self.current_history = all_values[length - 1]
 
@@ -156,7 +156,7 @@ class GameBoard:
             best streak.
         """
         self.find_player_row()
-        scores = api_calls.get_data()[1]
+        scores = api_calls.get_sheet_data()[1]
 
         win_update = int(self.current_history[1]) + int(win)
         api_calls.update_cell(f'B{self.data_row + 1}',
@@ -175,7 +175,7 @@ class GameBoard:
             api_calls.update_cell(
                 f'D{self.data_row + 1}', streak_update, scores
             )  # C urrent Streak increase
-        all_values = api_calls.get_data()[0]
+        all_values = api_calls.get_sheet_data()[0]
         if int(all_values[self.data_row][3]) > int(self.current_history[4]):
             best_streak = int(all_values[self.data_row][3])
             api_calls.update_cell(

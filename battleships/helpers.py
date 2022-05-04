@@ -19,46 +19,59 @@ def run_game():
     """
     print_game_start_help()
 
-    game_boards = setup_game(boards.GameBoard)  # CHANGE NAME HERE
+    game_boards = setup_boards(boards.GameBoard)
     my_board = game_boards[0]
     computer_board = game_boards[1]
 
     current_turn = my_board.whos_turn
 
-    while (  # ADD TO BUSINESS LOGIC
-            my_board.hit_count < my_board.ships and
-            computer_board.hit_count < computer_board.ships
-    ):
-        unique_coords = False
-        while not unique_coords:
+    while not game_over(my_board, computer_board):
+        is_unique_coords = False
+        while not is_unique_coords:
             targeting = ''
             if current_turn == my_board.name:
-                valid_input = False
-                while not valid_input:
-                    coords = input(
-                        '------ ENTER COORDINATES. eg. 2 3 --------\n')
-                    valid_input = validate_input(coords, True)
-                if is_off_board(valid_input, my_board):
-                    break
-                targeting = computer_board.recieve_shot(
+                valid_input = get_valid_input()
+            if is_off_board(valid_input, my_board):
+                loading_delay('', 2)
+                break
+            targeting = computer_board.recieve_shot(
                     valid_input[0], valid_input[1])
             if current_turn == computer_board.name:
                 valid_input = generate_coords(computer_board.size)
                 targeting = my_board.recieve_shot(
                     valid_input[0], valid_input[1])
             if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
-                if current_turn == my_board.name:
-                    print(targeting)
-                unique_coords = False
+                loading_delay(targeting, 2)
+                break
             if targeting == 'Hit' or targeting == 'Miss':
                 targeting_message = f'{current_turn} Targeting: {targeting}'
                 loading_delay(targeting_message, 2)
                 current_turn = track_rounds(
                     current_turn, my_board, computer_board)
-                unique_coords = True
+                is_unique_coords = True
         print_boards(my_board, computer_board)
     end_game(my_board, computer_board)
     run_game()
+
+
+def get_valid_input():
+    valid_input = False
+    while not valid_input:
+        coords = input(
+            '------ ENTER COORDINATES. eg. 2 3 --------\n')
+        valid_input = validate_input(coords, True)
+    return valid_input
+
+
+def game_over(my_board, computer_board):
+    """
+        Checkes if the game has been won yet and
+        returns boolean.
+    """
+    if (my_board.hit_count < my_board.ships and
+            computer_board.hit_count < computer_board.ships):
+        return False
+    return True
 
 
 def get_random(size):
@@ -196,7 +209,6 @@ def validate_input(parameters, is_board_built=False):
     '''
     if is_command(parameters):
         return False
-
     parameters = parameters.split()
     try:
         num_1 = int(parameters[0])
@@ -380,7 +392,7 @@ def print_score_board(parameters='scores'):
         Returns boolean indicating presence of defined string.
     """
     if parameters == 'scores' or parameters == 'Scores':
-        data = api_calls.get_data()[0]
+        data = api_calls.get_sheet_data()[0]
         scores = [{'name': row[0], 'score': row[4]} for row in data]
         scores.sort(key=sort_scores, reverse=True)
         print('-----TOP 5 BEST WINNING STREAKS-----')
@@ -396,7 +408,7 @@ def print_score_board(parameters='scores'):
     return False
 
 
-def setup_game(create_game_board):
+def setup_boards(create_game_board):
     """
         Collects game info; board size, ship number, player name.
         Builds the game boards from the user input.
