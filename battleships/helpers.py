@@ -44,11 +44,11 @@ def play_turn(my_board, computer_board):
     if not valid_input:
         return
     if current_turn == my_board.name:
-        targeting = computer_board.recieve_shot(
+        targeting = computer_board.take_fire(
             valid_input[0], valid_input[1])
     if current_turn == computer_board.name:
         valid_input = generate_coords(computer_board.size)
-        targeting = my_board.recieve_shot(
+        targeting = my_board.take_fire(
             valid_input[0], valid_input[1])
     if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
         repeat_message(targeting, current_turn)

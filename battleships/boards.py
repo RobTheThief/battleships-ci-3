@@ -59,7 +59,7 @@ class GameBoard:
         if self.name != 'Computer':
             self.login_player()
 
-    def recieve_shot(self, row, col):
+    def take_fire(self, row, col):
         '''
             checks if given coordinates are a hit or miss and updates the board
         '''
