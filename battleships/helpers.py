@@ -4,18 +4,54 @@ import os
 import pyfiglet
 from numpy import random
 
-from library import api_calls
+from battleships import api_calls, boards
 
-FUNCS = {}
-
-
-def get_function(func, func_name):
+def run_game():
     """
-        Takes in a function and a string and saves the
-        string as a key and the function as a value in
-        the global dictionary FUNC.
+        Main game loop that handles the flow of the program.
     """
-    FUNCS[func_name] = func
+    print_game_start_help()
+
+    game_boards = setup_game(boards.GameBoard) ## CHANGE NAME HERE
+    my_board = game_boards[0]
+    computer_board = game_boards[1]
+
+    current_turn = my_board.whos_turn
+
+    while ( ### ADD TO BUSINESS LOGIC
+            my_board.hit_count < my_board.ships and
+            computer_board.hit_count < computer_board.ships
+    ):
+        unique_coords = False
+        while not unique_coords:
+            targeting = ''
+            if current_turn == my_board.name:
+                valid_input = False
+                while not valid_input:
+                    coords = input(
+                        '------ ENTER COORDINATES. eg. 2 3 --------\n')
+                    valid_input = validate_input(coords, True)
+                if is_off_board(valid_input, my_board):
+                    break
+                targeting = computer_board.recieve_shot(
+                    valid_input[0], valid_input[1])
+            if current_turn == computer_board.name:
+                valid_input = generate_coords(computer_board.size)
+                targeting = my_board.recieve_shot(
+                    valid_input[0], valid_input[1])
+            if targeting == '**ALREADY FIRED ON THESE COORDINATES. TRY AGAIN':
+                if current_turn == my_board.name:
+                    print(targeting)
+                unique_coords = False
+            if targeting == 'Hit' or targeting == 'Miss':
+                targeting_message = f'{current_turn} Targeting: {targeting}'
+                loading_delay(targeting_message, 2)
+                current_turn = track_rounds(
+                    current_turn, my_board, computer_board)
+                unique_coords = True
+        print_boards(my_board, computer_board)
+    end_game(my_board, computer_board)
+    run_game()
 
 
 def get_random(size):
@@ -245,7 +281,7 @@ def reset_game(parameter='reset'):
     if parameter == 'reset' or parameter == 'Reset':
         answer = input('Are you sure you want to reset this game? y / n\n')
         if answer == 'y':
-            FUNCS['run_game']()
+            run_game()
     return False
 
 
