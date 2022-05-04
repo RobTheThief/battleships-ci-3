@@ -2,6 +2,7 @@ import copy
 
 from battleships import helpers, api_calls
 
+
 class GameBoard:
     """ 
         Boards class creats a biards object for each player.
@@ -11,6 +12,7 @@ class GameBoard:
         and for logging in or creating a new player in the
         database, and updating player scores in the database.
     """
+
     def __init__(self, size, ships, name='Computer'):
         self.size = size
         self.ships = ships
@@ -140,7 +142,8 @@ class GameBoard:
                     print(scores_line_2)
                     password_wrong = False
                     break
-                helpers.loading_delay('Password Incorrect. Resetting game..', 2)
+                helpers.loading_delay(
+                    'Password Incorrect. Resetting game..', 2)
                 run_game()
 
     def update_player_scores(self, win, loss):
@@ -152,10 +155,12 @@ class GameBoard:
         scores = api_calls.get_data()[1]
 
         win_update = int(self.current_history[1]) + int(win)
-        api_calls.update_cell(f'B{self.data_row + 1}', win_update, scores)  # Wins
+        api_calls.update_cell(f'B{self.data_row + 1}',
+                              win_update, scores)  # Wins
 
         loss_update = int(self.current_history[2]) + int(loss)
-        api_calls.update_cell(f'C{self.data_row + 1}', loss_update, scores)  # Lossses
+        api_calls.update_cell(f'C{self.data_row + 1}',
+                              loss_update, scores)  # Lossses
 
         if loss == 1:
             api_calls.update_cell(

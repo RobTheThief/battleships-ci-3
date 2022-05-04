@@ -1,6 +1,4 @@
-import copy
-
-from battleships import helpers, api_calls
+from battleships import helpers
 
 
 helpers.run_game()

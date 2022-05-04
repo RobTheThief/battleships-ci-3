@@ -6,19 +6,20 @@ from numpy import random
 
 from battleships import api_calls, boards
 
+
 def run_game():
     """
         Main game loop that handles the flow of the program.
     """
     print_game_start_help()
 
-    game_boards = setup_game(boards.GameBoard) ## CHANGE NAME HERE
+    game_boards = setup_game(boards.GameBoard)  # CHANGE NAME HERE
     my_board = game_boards[0]
     computer_board = game_boards[1]
 
     current_turn = my_board.whos_turn
 
-    while ( ### ADD TO BUSINESS LOGIC
+    while (  # ADD TO BUSINESS LOGIC
             my_board.hit_count < my_board.ships and
             computer_board.hit_count < computer_board.ships
     ):
@@ -221,14 +222,14 @@ def is_off_board(coords, board):
     '''
     if coords[0] > board.size:
         print(
-                '**X COORDINATE IS OFF BOARD! VALUE MUST BE',
-                board.size, 'OR LESS'
+            '**X COORDINATE IS OFF BOARD! VALUE MUST BE',
+            board.size, 'OR LESS'
         )
         return True
     if coords[1] > board.size:
         print(
-                '**Y COORDINATE IS OFF BOARD! VALUE MUST BE',
-                board.size, 'OR LESS'
+            '**Y COORDINATE IS OFF BOARD! VALUE MUST BE',
+            board.size, 'OR LESS'
         )
         return True
     return False
@@ -256,15 +257,15 @@ def is_command(parameters):
 def about(parameter='about'):
     if parameter == 'about' or parameter == 'About':
         print(
-                '\n------------ How to play -----------------',
-                '\nBattleships is played by guessing the',
-                '\ncoordinates of your opponents ships.',
-                '\nYou choose your coordinates using numbers',
-                '\n1 - 9.  The first number represents a row,',
-                '\nor "X" and the second is a column, or "Y.',
-                '\nThe first player to destroy all of their',
-                '\noppenents ships wins'
-                '\n------------------------------------------\n',
+            '\n------------ How to play -----------------',
+            '\nBattleships is played by guessing the',
+            '\ncoordinates of your opponents ships.',
+            '\nYou choose your coordinates using numbers',
+            '\n1 - 9.  The first number represents a row,',
+            '\nor "X" and the second is a column, or "Y.',
+            '\nThe first player to destroy all of their',
+            '\noppenents ships wins'
+            '\n------------------------------------------\n',
         )
         return True
     return False
@@ -296,23 +297,24 @@ def print_help(parameter='help'):
     if parameter == 'help' or parameter == 'Help':
         print('------------ GAME HELP -------------')
         print(
-                'Legend:\nSHIP  - <>\nSUNKEN SHIP',
-                '- #\nMISS - X\nNOT YET FIRED UPON - .\n'
+            'Legend:\nSHIP  - <>\nSUNKEN SHIP',
+            '- #\nMISS - X\nNOT YET FIRED UPON - .\n'
         )
         print(
-                'To Fire enter coordinates seperated by',
-                '\na space. The top left coordinate is 1 1.\n')
+            'To Fire enter coordinates seperated by',
+            '\na space. The top left coordinate is 1 1.\n')
         print(
-                'For help at any time type "help". To',
-                '\nsee the score board type "scores".',
-                '\nClear the console type "clear". To',
-                '\nreset the game type "reset" To',
-                '\nlearn more about the game mechanics',
-                '\ntype "about."',
+            'For help at any time type "help". To',
+            '\nsee the score board type "scores".',
+            '\nClear the console type "clear". To',
+            '\nreset the game type "reset" To',
+            '\nlearn more about the game mechanics',
+            '\ntype "about."',
         )
         print('------------------------------------\n')
         return True
     return False
+
 
 def print_game_start_help():
     """
@@ -321,14 +323,14 @@ def print_game_start_help():
     """
     ascii_banner = pyfiglet.figlet_format("<*>Battleships<*>")
     print(ascii_banner)
-    print(  
-            '---------- GAME COMMANDS -----------',
-            '\nFor help at any time type "help". To',
-            '\nsee the score board type "scores".',
-            '\nClear the console type "clear". To',
-            '\nreset the game type "reset" To',
-            '\nlearn more about the game mechanics',
-            '\ntype "about."',
+    print(
+        '---------- GAME COMMANDS -----------',
+        '\nFor help at any time type "help". To',
+        '\nsee the score board type "scores".',
+        '\nClear the console type "clear". To',
+        '\nreset the game type "reset" To',
+        '\nlearn more about the game mechanics',
+        '\ntype "about."',
     )
     print('------------------------------------\n')
 
@@ -387,10 +389,10 @@ def setup_game(create_game_board):
     """
     valid_input = False
     print(
-            '\nIf you enter 4 for size it will be a 4 X 4 board.',
-            '\nThe next digit is the number of ships on the board.',
-            '\nFirst enter board size and then the number of ships,',
-            '\nseperated by a space. Example: 4 5',
+        '\nIf you enter 4 for size it will be a 4 X 4 board.',
+        '\nThe next digit is the number of ships on the board.',
+        '\nFirst enter board size and then the number of ships,',
+        '\nseperated by a space. Example: 4 5',
     )
     while not valid_input:
         board_info = input('Board size cannot be bigger than 9:\n')
