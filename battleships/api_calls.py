@@ -1,3 +1,9 @@
+"""
+    This module contains the functions and data necessary
+    to make API calls to Google sheets to manage the
+    database.
+"""
+
 import gspread
 from google.oauth2.service_account import Credentials
 

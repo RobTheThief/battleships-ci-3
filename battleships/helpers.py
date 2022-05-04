@@ -1,3 +1,9 @@
+"""
+    This module contains the helper functions which make up
+    bulk of the package.  It also included the run_game
+    function which controls the main game flow.
+"""
+
 import math
 import time
 import os
@@ -153,7 +159,7 @@ def loading_delay(message, delay):
     time.sleep(delay)
 
 
-def validate_ship_to_board_size_ratio(valid_input):
+def validate_ship_quantity(valid_input):
     '''
         Check that the board area is larger that the number
         of ships.
@@ -169,12 +175,12 @@ def validate_ship_to_board_size_ratio(valid_input):
     return False
 
 
-def check_board_size(x):
+def check_board_size(size):
     '''
         Check that the board is not larger than 9
         Returns boolean
     '''
-    if x < 10:
+    if size < 10:
         return True
     print('**BOARD SIZE CANNOT BE BIGGER THAN 9')
     return False
@@ -193,7 +199,7 @@ def validate_input(parameters, is_board_built=False):
 
     parameters = parameters.split()
     try:
-        x = int(parameters[0])
+        num_1 = int(parameters[0])
     except ValueError:
         print('**FIRST PARAMETER IS NOT A NUMBER')
         return False
@@ -201,14 +207,14 @@ def validate_input(parameters, is_board_built=False):
         print('**NOTHING WAS ENTERED. TRY AGAIN')
         return False
     try:
-        y = int(parameters[1])
-        if x <= 0 or y <= 0:
+        num_2 = int(parameters[1])
+        if num_1 <= 0 or num_2 <= 0:
             print('**VALUES CANNOT BE ZERO OR LESS')
             return
         if is_board_built:
-            return [x, y]
-        if validate_ship_to_board_size_ratio([x, y]) and check_board_size(x):
-            return [x, y]
+            return [num_1, num_2]
+        if validate_ship_quantity([num_1, num_2]) and check_board_size(num_1):
+            return [num_1, num_2]
     except ValueError:
         print('**SECOND PARAMETER IS NOT A NUMBER')
         return False
@@ -258,6 +264,13 @@ def is_command(parameters):
 
 
 def about(parameter='about'):
+    """
+        Prints info about the game if parameter
+        passed is equal to string 'about' or
+        'About'. Parameter passed is equal to
+        'about' by default. Returns False if
+        there is no presence of defined string.
+    """
     if parameter == 'about' or parameter == 'About':
         print(
             '\n------------ How to play -----------------',

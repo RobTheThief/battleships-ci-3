@@ -1,10 +1,14 @@
+"""
+    This module contains the class that is used to create
+    the game boards for each player.
+"""
 import copy
 
 from battleships import helpers, api_calls
 
 
 class GameBoard:
-    """ 
+    """
         Boards class creats a biards object for each player.
         It contains all the information on the player and the
         board needed to play a game. It also has methods to
@@ -32,7 +36,7 @@ class GameBoard:
         to the board object twice. The second is deep copied
         and used as a blank board for the opponent.
         '''
-        for row in range(0, self.size):
+        for _ in range(0, self.size):
             row_list = [' .' for cell in range(0, self.size)]
             self.board_matrix.append(row_list)
         self.board_matrix_obscured = copy.deepcopy(self.board_matrix)
@@ -83,7 +87,7 @@ class GameBoard:
         found = False
         for row in all_values:
             try:
-                find = row.index(self.name)
+                row.index(self.name)
                 self.current_history = row
                 count += 1
                 self.data_row = count
@@ -144,7 +148,7 @@ class GameBoard:
                     break
                 helpers.loading_delay(
                     'Password Incorrect. Resetting game..', 2)
-                run_game()
+                helpers.run_game()
 
     def update_player_scores(self, win, loss):
         """
