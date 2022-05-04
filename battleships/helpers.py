@@ -225,25 +225,25 @@ def validate_input(parameters, is_board_built=False):
     try:
         num_1 = int(parameters[0])
     except ValueError:
-        print('**FIRST PARAMETER IS NOT A NUMBER')
+        loading_delay('**FIRST PARAMETER IS NOT A NUMBER', 2)
         return False
     except IndexError:
-        print('**NOTHING WAS ENTERED. TRY AGAIN')
+        loading_delay('**NOTHING WAS ENTERED. TRY AGAIN', 2)
         return False
     try:
         num_2 = int(parameters[1])
         if num_1 <= 0 or num_2 <= 0:
-            print('**VALUES CANNOT BE ZERO OR LESS')
+            loading_delay('**VALUES CANNOT BE ZERO OR LESS', 2)
             return
         if is_board_built:
             return [num_1, num_2]
         if validate_ship_quantity([num_1, num_2]) and check_board_size(num_1):
             return [num_1, num_2]
     except ValueError:
-        print('**SECOND PARAMETER IS NOT A NUMBER')
+        loading_delay('**SECOND PARAMETER IS NOT A NUMBER', 2)
         return False
     except IndexError:
-        print('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN')
+        loading_delay('**ONLY ONE PARAMETER WAS ENTERED. TRY AGAIN', 2)
         return False
     return False
 
