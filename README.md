@@ -246,10 +246,11 @@ out any bugs and/or user experience issues.
     "Sequence index is not an int, slice, or instance with __index__".
 
     This was resolved by converting the data type passed as index to type int.
-     
+
     All pylint errors were also resolved:
 
-    **__init__.py**
+    **pylint**  
+
     ![pylint](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/pylint.png)
 
 
