@@ -37,9 +37,10 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - **Score board**
 
   - Ability to add player name to keep track of score by means of a cloud based database.  
-  The score board is viewed at the beginning of each game or through game commands.
+  The score board through game commands `scores` and `myscores`.
 
   ![Score board](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/score_board.png)
+  ![Player scores](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/myscores.png)
 
   - The player enters their name and password.
   - Password must match if it was a previously used name.
@@ -79,13 +80,14 @@ Google Sheets API to access a Google sheet and keep scores for players.
 - **In Game Commands**
 
   - After the game starts instead of entering coordinates the player can enger 4 different commands
-    1. "help" is used to print out the game instructions that were printed at the beginning of the game.
-    1. "scores" is used to print out the score board that was used at the begining of the game.
+    1. "help" is used to print out the game instructions.
+    1. "scores" is used to print out the score board.
+    1. "myscores" is used to print out the players score history.
     1. "reset" is used to reset the game. The player is asked to confirm command first.
-    1. "clear" is used to clear the visible console.
-    1. "about" is used to learn more about the game mechanics if you are unfamiliar with Battleships.
+    1. "about" is used to learn more about the game mechanics if you are unfamiliar with Battleships.  
+    as well as developer information.
 
-  ![Random ship placement](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/game_commands.png)
+  ![Game Commands](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/game_commands.png)
 
 ### FUTURE FEATURES
 
@@ -156,27 +158,26 @@ Google Sheets API to access a Google sheet and keep scores for players.
      2. When the game loads there are instructions on how to use game commands and in  
      particular there are 'help' and 'about' commands that give an even more detailed  
      discription of how to play the game. 
-     3. A legend is printed to describe the different symbols on the board.
+     3. A legend is provided through using the help command.
   2. As a First Time Visitor, I want to understand the game controls.
-     1. The 'about' command will describe the how the coordinates work.
+     1. The 'about' command will describe how the coordinates work.
      2. The introduction information and the 'help' command describe how to enter  
      coordinates.
      3. Upon being prompted for input an example is given.
   3. As a First Time Visitor, I want to be able keep track of score.
-     1. At the beginning of the game the top 5 best winning streaks are printed.
-     2. Every time a shot is fired 'Hit' or 'Miss' is printed. 
-     3. Each board has the number of hits taken displayed in each round.
-     4. At the end of the game the results are recorded to the database.
-     5. The user can type 'scores' at any time to see the top 5 best winning streaks  
+     1. Every time a shot is fired 'Hit' or 'Miss' is printed. 
+     2. Each board has the number of hits taken displayed in each turn.
+     3. At the end of the game the results are recorded to the database.
+     4. The user can type 'scores' at any time to see the top 5 best winning streaks  
      from past users.
 
 - #### Returning Visitor Goals
 
   1. As a Returning Visitor, see my previous scores and play again.
-     1. At the beginning of the game the top 5 best winning streaks are printed.
-     2. When the user logs in again their entire score history is printed.
-     3. The user can type 'scores' at any time to see the top 5 best winning streaks  
+     1. When the user logs in again their entire score history is printed.
+     2. The user can type 'scores' at any time to see the top 5 best winning streaks  
      from past users.
+     3. The user can type 'myscores' at any time to see their score history.
      4. At the end of the game the results are recorded to the database.
 
 ### Known Bugs
@@ -205,7 +206,7 @@ coordinates being fired upon.
 
 - Tested locally and on the Code Institute Heroku terminal.
 - Test giving the program invalid input; strings, off board values, too many  
-ships for board size, board size too big, negative and zero values.
+ships for board size, board size too big, negative and zero values, no input.
 - Friends and family members were asked to play the game to point  
 out any bugs and/or user experience issues.
 
@@ -220,7 +221,7 @@ out any bugs and/or user experience issues.
     White spaces were simply deleted. Line too long errors were solved mainly by  
     breaking up f stings and using parenthesis to enclose them, as well as editing  
     docstrings. The comparison error was solved by simply deleting '== True' as this  
-    is extra or redundant.
+    was redundant.
 
     All three files passed the PEP8 validator tests:
     
@@ -232,6 +233,24 @@ out any bugs and/or user experience issues.
 
     **helpers.py**
     ![Helpers](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/helpers_pep8.png)
+
+    **boards.py**
+    ![Boards Class](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/boards_pep8.png)
+
+    **__init__.py**
+    ![__init__](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/init_pep8.png)
+
+  - Vscode Pylint
+
+    An example of one resolved pylint error was:  
+    "Sequence index is not an int, slice, or instance with __index__".
+
+    This was resolved by converting the data type passed as index to type int.
+     
+    All pylint errors were also resolved:
+
+    **__init__.py**
+    ![pylint](https://github.com/RobTheThief/battleships-ci-3/blob/main/assets/media/pylint.png)
 
 
 ## Deployment

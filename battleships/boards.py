@@ -51,8 +51,8 @@ class GameBoard:
         for _ in range(0, self.ships):
             done = False
             while not done:
-                random_row = helpers.get_random(self.size)
-                random_col = helpers.get_random(self.size)
+                random_row = int(helpers.get_random(self.size))
+                random_col = int(helpers.get_random(self.size))
                 if self.board_matrix[random_row][random_col] != '<>':
                     self.board_matrix[random_row][random_col] = '<>'
                     done = True
