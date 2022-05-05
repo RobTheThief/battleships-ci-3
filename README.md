@@ -132,7 +132,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
 1. [getpass:](https://docs.python.org/3/library/getpass.html)
     - getpass was used to conceal the password input by the user.
 
-#### Promgams
+#### Programs
 
 1. [Git](https://git-scm.com/)
    - Git was used for version control by utilizing the Gitpod terminal to commit  
