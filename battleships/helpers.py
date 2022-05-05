@@ -476,6 +476,8 @@ def setup_boards(create_game_board):
         board_info = input('Board size cannot be bigger than 9:\n')
         valid_input = validate_input(board_info)
     player_name = input('Enter your name:\n')
+    while player_name == '':
+        player_name = input('Name must not be empty:\n')
     game_boards = build_boards(valid_input, player_name, create_game_board)
     my_board = game_boards[0]
     computer_board = game_boards[1]
