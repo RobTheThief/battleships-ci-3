@@ -102,7 +102,6 @@ Google Sheets API to access a Google sheet and keep scores for players.
 ### Languages Used
 
 - [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
-- [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
 
 ### Libraries & Programs Used
 
@@ -119,6 +118,9 @@ Google Sheets API to access a Google sheet and keep scores for players.
    - Was used to make the logic flow chart in this readme.
 1. [Balsamiq:](https://balsamiq.com/)
    - Was used to create the wireframe for the game.
+1. [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
+   - Google sheets was used as a simple database to store player  
+   score history. 
 
 #### Python Librarys
 
