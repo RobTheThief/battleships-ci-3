@@ -105,23 +105,6 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 ### Libraries & Programs Used
 
-#### Promgams
-
-1. [Git](https://git-scm.com/)
-   - Git was used for version control by utilizing the Gitpod terminal to commit  
-   to Git and Push to GitHub.
-1. [GitHub:](https://github.com/)
-   - GitHub is used to store the projects code after being pushed from Git.
-1. [Heroku:](https://www.heroku.com/)
-   - Was used to host and deploy the game.
-1. [Lucid:](https://www.lucidchart.com/)
-   - Was used to make the logic flow chart in this readme.
-1. [Balsamiq:](https://balsamiq.com/)
-   - Was used to create the wireframe for the game.
-1. [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
-   - Google sheets was used as a simple database to store player  
-   score history. 
-
 #### Python Librarys
 
 1. [gspread:](https://docs.gspread.org/)
@@ -148,6 +131,24 @@ Google Sheets API to access a Google sheet and keep scores for players.
     - pyfiglet was used to generate the game logo graphic. 
 1. [getpass:](https://docs.python.org/3/library/getpass.html)
     - getpass was used to conceal the password input by the user.
+
+#### Promgams
+
+1. [Git](https://git-scm.com/)
+   - Git was used for version control by utilizing the Gitpod terminal to commit  
+   to Git and Push to GitHub.
+1. [GitHub:](https://github.com/)
+   - GitHub is used to store the projects code after being pushed from Git.
+1. [Heroku:](https://www.heroku.com/)
+   - Was used to host and deploy the game.
+1. [Lucid:](https://www.lucidchart.com/)
+   - Was used to make the logic flow chart in this readme.
+1. [Balsamiq:](https://balsamiq.com/)
+   - Was used to create the wireframe for the game.
+1. [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets)
+   - Google sheets was used as a simple database to store player  
+   score history. 
+
 
 ## TESTING
 
