@@ -93,7 +93,7 @@ Google Sheets API to access a Google sheet and keep scores for players.
 
 - **PvP**
 
-  - A possible future feature might be to allow player to log into a  
+  - A possible future feature might be to allow players to log into a  
   lobby and match up to play against each other.
 
 
