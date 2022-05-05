@@ -193,8 +193,8 @@ in helpers but importing run.py into helpers caused a circular import error.
     run.py to import and run run_game(). This gave the other functions access  
     to the run_game function.
 
-- Entering zero or minus values gave unusual bugs like upon entering the borad  
-size and ship number, after login the game would immediatly declare that you  
+- Entering zero or minus values gave unusual bugs like doind so for borad  
+size and ship number and then logging in the game would immediatly declare that you  
 lost the game and start a new one.
 - Doing so during the game when entering coordinates would result in random  
 coordinates being fired upon.
