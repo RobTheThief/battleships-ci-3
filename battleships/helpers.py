@@ -235,7 +235,7 @@ def check_board_size(size):
     return False
 
 
-def validate_input(parameters, is_board_built=False, my_board={}):
+def validate_input(parameters, is_board_built, my_board):
     '''
         Validates input by checking if there is more than one parameter,
         that only numbers are input, the board size, and board size to
@@ -309,7 +309,7 @@ def is_command(parameters, my_board):
         return True
     if about(parameters):
         return True
-    if my_scores(parameters, my_board):
+    if my_scores(my_board, parameters):
         return True
     return False
 
@@ -326,7 +326,7 @@ def confirm_input(task):
     return False
 
 
-def my_scores(parameter='myscores', my_board={}):
+def my_scores(my_board, parameter='myscores'):
     """
         Prints player score info if parameter
         passed is equal to string 'myscores' or
@@ -502,7 +502,7 @@ def setup_boards(create_game_board):
     )
     while not valid_input:
         board_info = input('Board size cannot be bigger than 9:\n')
-        valid_input = validate_input(board_info)
+        valid_input = validate_input(board_info, False, {})
     player_name = input('Enter your name:\n')
     while player_name == '':
         player_name = input('Name must not be empty:\n')
