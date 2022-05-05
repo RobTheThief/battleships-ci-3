@@ -61,7 +61,8 @@ class GameBoard:
 
     def take_fire(self, row, col):
         '''
-            checks if given coordinates are a hit or miss and updates the board
+            checks if given coordinates are a hit or
+            miss and updates the board.
         '''
         target = self.board_matrix[row - 1][col - 1]
         if target == '<>':
@@ -133,7 +134,8 @@ class GameBoard:
         count = 1
         while pword != self.current_history[5]:
             print(
-            f'Password Incorrect. Trys left: {3 - count}..')
+                f'Password Incorrect. Trys left: {3 - count}..'
+            )
             count += 1
             pword = getpass('Enter your password:\n')
             if count >= 3:
