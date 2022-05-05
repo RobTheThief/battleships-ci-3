@@ -96,6 +96,17 @@ Google Sheets API to access a Google sheet and keep scores for players.
   - A possible future feature might be to allow players to log into a  
   lobby and match up to play against each other.
 
+- **Message Informing PLayer of New Best Win Streak**
+
+  - At the end of the game if a new personal or overal best win streak is  
+  achieved a victory message could displayed.
+
+- **Leagues**
+
+  - Score boards could be seperated into different google sheets according to  
+  boards size or ship number.
+
+
 
 ## Technologies Used
 
@@ -168,20 +179,26 @@ Google Sheets API to access a Google sheet and keep scores for players.
      coordinates.
      3. Upon being prompted for input an example is given.
   3. As a First Time Visitor, I want to be able keep track of score.
-     1. Every time a shot is fired 'Hit' or 'Miss' is printed. 
+     1. Every time a shot is fired 'Hit' or 'Miss' is printed and the  
+     boards are labeled with whos turn it is at the top. The updated  
+     boards are then printed and the other player takes their turn.
      2. Each board has the number of hits taken displayed in each turn.
-     3. At the end of the game the results are recorded to the database.
+     3. At the end of the game the result is displayed and are recorded to the  
+     database.
      4. The user can type 'scores' at any time to see the top 5 best winning streaks  
      from past users.
 
 - #### Returning Visitor Goals
 
   1. As a Returning Visitor, see my previous scores and play again.
-     1. When the user logs in again their entire score history is printed.
-     2. The user can type 'scores' at any time to see the top 5 best winning streaks  
+     1. After setting the board size and ship number the user can log in using  
+     their prviously set username and password and start a new game.
+     2. When the user logs in their entire score history can be accessed through  
+     commands.
+     3. The user can type 'scores' at any time to see the top 5 best winning streaks  
      from past users.
-     3. The user can type 'myscores' at any time to see their score history.
-     4. At the end of the game the results are recorded to the database.
+     4. The user can type 'myscores' at any time to see their score history.
+     5. At the end of the game the results are recorded to the database.
 
 ### Known Bugs
 
