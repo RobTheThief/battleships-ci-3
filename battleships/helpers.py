@@ -17,7 +17,7 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
-    clear_console('program command 42')
+    clear_console()
     print_banner("<*>Battleships<*>")
     print_game_start_help()
 
@@ -176,10 +176,10 @@ def print_boards(my_board, computer_board):
         Prints both boards with row and columns labeled
         and the hit count over each board
     '''
-    clear_console('program command 42')
+    clear_console()
     print(
-        f"-------- ROUND: {my_board.round_count}.",
-        f"{my_board.whos_turn}'s Turn --------"
+        f"--------- ROUND: {my_board.round_count}.",
+        f"{my_board.whos_turn}'s Turn ---------"
     )
     print(
         'PLAYER BOARD, Hits Taken: ',
@@ -300,8 +300,7 @@ def is_command(parameters, my_board):
         to the console and runs it if it has been passed.
         Returns boolean to indicate presence of command.
     """
-    if clear_console(parameters):
-        return True
+
     if print_help(parameters):
         return True
     if print_score_board(parameters):
@@ -339,10 +338,10 @@ def my_scores(parameter='myscores', my_board={}):
         return False
     if parameter == 'myscores' or parameter == 'Myscores':
         print(
-                f'Wins: {my_board.current_history[0]}',
-                f'\nLosses: {my_board.current_history[1]}',
-                f'\nCurrent Streak: {my_board.current_history[2]}',
-                f'\nBest Streak: {my_board.current_history[3]}',
+                f'Wins: {my_board.current_history[1]}',
+                f'\nLosses: {my_board.current_history[2]}',
+                f'\nCurrent Streak: {my_board.current_history[3]}',
+                f'\nBest Streak: {my_board.current_history[4]}',
         )
         input('Press enter to continue')
         return True
@@ -359,14 +358,17 @@ def about(parameter='about'):
     """
     if parameter == 'about' or parameter == 'About':
         print(
-            '\n------------ How to play -----------------',
+            '\n---------- About Battleships -------------',
             '\nBattleships is played by guessing the',
             '\ncoordinates of your opponents ships.',
             '\nYou choose your coordinates using numbers',
             '\n1 - 9.  The first number represents a row,',
             '\nor "X" and the second is a column, or "Y.',
             '\nThe first player to destroy all of their',
-            '\noppenents ships wins'
+            '\noppenents ships wins.'
+            '\nIf you have any questions or feedback about',
+            '\nthe game please go to:',
+            '\nwww.robgannon.com/contact.php',
             '\n------------------------------------------\n',
         )
         input('Press enter to continue')
@@ -399,23 +401,27 @@ def print_help(parameter='help'):
         string.
     """
     if parameter == 'help' or parameter == 'Help':
-        print('------------ GAME HELP -------------')
         print(
-            'Legend:\nSHIP  - <>\nSUNKEN SHIP',
-            '- #\nMISS - X\nNOT YET FIRED UPON - .\n'
+                '--------------- GAME HELP ----------------'
         )
         print(
-            'To Fire enter coordinates seperated by',
-            '\na space. The top left coordinate is 1 1.\n')
-        print(
-            'For help at any time type "help". To',
-            '\nsee the score board type "scores".',
-            '\nClear the console type "clear". To',
-            '\nreset the game type "reset" To',
-            '\nlearn more about the game mechanics',
-            '\ntype "about."',
+                'Legend:\nSHIP  - <>\nSUNKEN SHIP',
+                '- #\nMISS - X\nNOT YET FIRED UPON - .\n'
         )
-        print('------------------------------------\n')
+        print(
+                'To Fire enter coordinates seperated by',
+                '\na space. The top left coordinate is 1 1.\n')
+        print(
+                '\n- For help at any time type "help".',
+                '\n- To see the score board type "scores".',
+                '\n- To reset the game type "reset"',
+                '\n- Learn more about the game mechanics',
+                '\n  type "about".',
+                '\n- To see your scores type "myscores"',
+        )
+        print(
+                '------------------------------------------\n'
+        )
         input('Press enter to continue')
         return True
     return False
@@ -428,35 +434,24 @@ def print_game_start_help():
     """
 
     print(
-        '---------- GAME COMMANDS -----------',
-        '\nFor help at any time type "help". To',
-        '\nsee the score board type "scores".',
-        '\nClear the console type "clear". To',
-        '\nreset the game type "reset" To',
-        '\nlearn more about the game mechanics',
-        '\ntype "about."',
+            '------------- GAME COMMANDS --------------',
+            '\n- For help at any time type "help".',
+            '\n- To see the score board type "scores".',
+            '\n- To reset the game type "reset"',
+            '\n- Learn more about the game mechanics and',
+            '\n  the developer type "about".',
+            '\n- To see your scores type "myscores"',
     )
-    print('------------------------------------\n')
+    print(
+            '------------------------------------------\n'
+    )
 
 
-def clear_console(parameters='clear'):
+def clear_console():
     """
-        Clears the console if parameter passed is equal
-        to string 'Clear' or 'clear'. Parameter passed
-        is equal to 'clear' by default.
-        Returns boolean indicating presence of defined
-        string.
+        Clears the console.
     """
-    confirmed = False
-    if parameters == 'program command 42':
-        os.system('clear')
-        return True
-    if parameters == 'clear' or parameters == 'Clear':
-        confirmed = confirm_input('to clear the terminal?')
-    if confirmed:
-        os.system('clear')
-        return True
-    return False
+    os.system('clear')
 
 
 def sort_scores(score):
