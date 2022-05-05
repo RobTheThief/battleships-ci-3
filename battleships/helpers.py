@@ -338,7 +338,12 @@ def my_scores(parameter='myscores', my_board={}):
     if my_board == {}:
         return False
     if parameter == 'myscores' or parameter == 'Myscores':
-        print(my_board.current_history)
+        print(
+                f'Wins: {my_board.current_history[0]}',
+                f'\nLosses: {my_board.current_history[1]}',
+                f'\nCurrent Streak: {my_board.current_history[2]}',
+                f'\nBest Streak: {my_board.current_history[3]}',
+        )
         input('Press enter to continue')
         return True
     return False

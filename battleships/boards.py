@@ -130,21 +130,16 @@ class GameBoard:
             return self.add_new_player()
 
         pword = getpass('Enter your password:\n')
+        count = 1
+        while pword != self.current_history[5]:
+            print(
+            f'Password Incorrect. Trys left: {3 - count}..')
+            count += 1
+            pword = getpass('Enter your password:\n')
+            if count >= 3:
+                break
         if pword == self.current_history[5]:
-            scores_line_1 = (
-                f'\nWins: {self.current_history[1]} '
-                f'Losses: {self.current_history[2]}'
-            )
-            scores_line_2 = (
-                f'Current win streak: '
-                f'{self.current_history[3]} '
-                f'Best win streak: '
-                f'{self.current_history[4]}'
-            )
-            print(scores_line_1)
-            print(scores_line_2)
             return
-
         helpers.pause_message(
             'Password Incorrect. Resetting game..', 2)
         helpers.run_game()
