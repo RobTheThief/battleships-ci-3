@@ -108,6 +108,8 @@ class GameBoard:
         all_values = data[0]
         scores = data[1]
         pword = getpass('New player! Enter a password:\n')
+        while pword == '':
+            pword = getpass('Password field cannot be empty. Enter a password:\n')
         length = len(all_values)
 
         api_calls.update_cell(f'A{length + 1}', self.name, scores)  # Name
