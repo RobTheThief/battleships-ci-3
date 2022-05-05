@@ -17,7 +17,7 @@ def run_game():
     """
         Main game loop that handles the flow of the program.
     """
-    clear_console()
+    clear_console('program command 42')
     print_banner("<*>Battleships<*>")
     print_game_start_help()
 
@@ -91,7 +91,7 @@ def get_valid_input(my_board):
     bad_coords = False
     coords = input(
                 '------ ENTER COORDINATES. eg. 2 3 --------\n')
-    valid_input = validate_input(coords, True)
+    valid_input = validate_input(coords, True, my_board)
     if valid_input:
         bad_coords = is_off_board(valid_input, my_board)
     if not bad_coords:
@@ -176,7 +176,7 @@ def print_boards(my_board, computer_board):
         Prints both boards with row and columns labeled
         and the hit count over each board
     '''
-    clear_console()
+    clear_console('program command 42')
     print(
         f"-------- ROUND: {my_board.round_count}.",
         f"{my_board.whos_turn}'s Turn --------"
@@ -235,7 +235,7 @@ def check_board_size(size):
     return False
 
 
-def validate_input(parameters, is_board_built=False):
+def validate_input(parameters, is_board_built=False, my_board={}):
     '''
         Validates input by checking if there is more than one parameter,
         that only numbers are input, the board size, and board size to
@@ -243,7 +243,7 @@ def validate_input(parameters, is_board_built=False):
         Returns valid input in seperate values and in integer form in a
         list or False if input is not valid.
     '''
-    if is_command(parameters):
+    if is_command(parameters, my_board):
         return False
     parameters = parameters.split()
     try:
@@ -294,7 +294,7 @@ def is_off_board(coords, board):
     return False
 
 
-def is_command(parameters):
+def is_command(parameters, my_board):
     """
         Checks if a pre defined command has been passed
         to the console and runs it if it has been passed.
@@ -309,6 +309,37 @@ def is_command(parameters):
     if reset_game(parameters):
         return True
     if about(parameters):
+        return True
+    if my_scores(parameters, my_board):
+        return True
+    return False
+
+
+def confirm_input(task):
+    """
+        Checks with the user that they want to go ahead
+        with the defined task.
+        Returns boolean.
+    """
+    answer = input(f'Do you want {task} y / n\n')
+    if answer == 'y' or answer == 'Y':
+        return True
+    return False
+
+
+def my_scores(parameter='myscores', my_board={}):
+    """
+        Prints player score info if parameter
+        passed is equal to string 'myscores' or
+        'Myscores'. Parameter passed is equal to
+        'myscores' by default. Returns False if
+        there is no presence of defined string.
+    """
+    if my_board == {}:
+        return False
+    if parameter == 'myscores' or parameter == 'Myscores':
+        print(my_board.current_history)
+        input('Press enter to continue')
         return True
     return False
 
@@ -333,18 +364,7 @@ def about(parameter='about'):
             '\noppenents ships wins'
             '\n------------------------------------------\n',
         )
-        return True
-    return False
-
-
-def confirm_input(task):
-    """
-        Checks with the user that they want to go ahead
-        with the defined task.
-        Returns boolean.
-    """
-    answer = input(f'Are you sure you want {task} y / n\n')
-    if answer == 'y' or answer == 'Y':
+        input('Press enter to continue')
         return True
     return False
 
@@ -391,6 +411,7 @@ def print_help(parameter='help'):
             '\ntype "about."',
         )
         print('------------------------------------\n')
+        input('Press enter to continue')
         return True
     return False
 
@@ -421,7 +442,13 @@ def clear_console(parameters='clear'):
         Returns boolean indicating presence of defined
         string.
     """
+    confirmed = False
+    if parameters == 'program command 42':
+        os.system('clear')
+        return True
     if parameters == 'clear' or parameters == 'Clear':
+        confirmed = confirm_input('to clear the terminal?')
+    if confirmed:
         os.system('clear')
         return True
     return False
@@ -454,6 +481,7 @@ def print_score_board(parameters='scores'):
             print(f'{scores[index]["name"]}: {scores[index]["score"]}')
             index += 1
         print('------------------------------------\n')
+        input('Press enter to continue')
         return True
     return False
 
