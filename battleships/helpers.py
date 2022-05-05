@@ -376,19 +376,22 @@ def about(parameter='about'):
     return False
 
 
-def reset_game(parameter='reset'):
+def reset_game(parameter):
     """
         Resets the game if parameter passed is equal
         to string 'reset' or 'Reset'. Parameter
         passed is equal to 'reset' by default.
         Returns False if there is no presence of
-        defined string.
+        defined string and True if the uers decides
+        to cancel action.
     """
     confirmed = False
     if parameter == 'reset' or parameter == 'Reset':
         confirmed = confirm_input('to reset the game?')
     if confirmed:
         run_game()
+    elif parameter == 'reset':
+        return True
     return False
 
 
